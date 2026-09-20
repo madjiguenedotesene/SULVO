@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-590fa60f-0991-4565-a8bd-41152bdb18d4/styles.css">
+<link rel="manifest" href="manifest.json">
+<script src="_ds/modernist-590fa60f-0991-4565-a8bd-41152bdb18d4/_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: #0b0b0b; }
+  a { color: #c9a227; }
+  a:hover { color: #e3c46a; }
+  input, select, textarea { font-family: Archivo, system-ui, sans-serif; }
+  ::placeholder { color: rgba(245,243,239,0.35); }
+  @keyframes sulvo-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+
+<div style="minHeight:100vh;display:flex;flexDirection:column;background:#0b0b0b;color:#f5f3ef;fontFamily:Archivo,system-ui,sans-serif">
+
+  <div style="borderBottom:1px solid rgba(201,162,39,0.3);color:#c9a227;fontSize:11px;letterSpacing:0.18em;textTransform:uppercase;padding:9px 22px;display:flex;justifyContent:space-between;gap:4px 16px;flexWrap:wrap;lineHeight:1.5">
+    <span>Wear your purpose. — Livraison mondiale</span>
+    <span>{{ statusLine }}</span>
+  </div>
+
+  <header style="display:flex;alignItems:center;gap:26px;flexWrap:wrap;padding:16px 22px;borderBottom:2px solid rgba(245,243,239,0.18);background:#0b0b0b;position:sticky;top:0;zIndex:20">
+    <a href="#" onClick="{{ goHome }}" style="display:flex;alignItems:center;gap:14px;textDecoration:none;color:#f5f3ef">
+      <img src="assets/sulvo-mark.png" alt="SULVO" style="height:38px;width:auto;filter:invert(1);mixBlendMode:screen">
+      <span style="fontWeight:800;fontSize:21px;letterSpacing:0.3em">SULVO</span>
+    </a>
+    <nav style="display:flex;gap:2px;flexWrap:wrap;marginRight:auto">
+      <button onClick="{{ goHome }}" style="background:none;border:0;color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;padding:8px 12px;cursor:pointer">Accueil</button>
+      <button onClick="{{ goCatalogue }}" style="background:none;border:0;color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;padding:8px 12px;cursor:pointer">Collections</button>
+      <button onClick="{{ goManifeste }}" style="background:none;border:0;color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;padding:8px 12px;cursor:pointer">Manifeste</button>
+      <button onClick="{{ goCompte }}" style="background:none;border:0;color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;padding:8px 12px;cursor:pointer">Compte</button>
+      <button onClick="{{ goAdmin }}" style="background:none;border:0;color:#c9a227;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;padding:8px 12px;cursor:pointer">Admin</button>
+    </nav>
+    <div style="display:flex;alignItems:center;gap:10px">
+      <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Rechercher" style="width:150px;background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:9px 11px;fontSize:13px">
+      <sc-if value="{{ canInstall }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ install }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.35);fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:10px 14px;cursor:pointer">Installer</button>
+      </sc-if>
+      <button onClick="{{ goPanier }}" style="background:#c9a227;color:#0b0b0b;border:1px solid #c9a227;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:10px 16px;cursor:pointer">Panier {{ cartCountLabel }}</button>
+    </div>
+  </header>
+
+  <main style="flex:1">
+
+  <!-- ACCUEIL -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <section style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(320px,1fr));borderBottom:2px solid rgba(245,243,239,0.18)">
+      <div style="padding:clamp(28px,5vw,76px);display:flex;flexDirection:column;justifyContent:center;gap:22px">
+        <span style="fontSize:11px;letterSpacing:0.26em;textTransform:uppercase;color:#c9a227">Collections 2026</span>
+        <h1 style="fontSize:clamp(42px,7vw,90px);lineHeight:0.92;margin:0;letterSpacing:-0.03em;fontWeight:800">WEAR<br>YOUR<br>PURPOSE.</h1>
+        <div style="height:2px;background:#c9a227;width:96px"></div>
+        <p style="fontSize:clamp(16px,1.6vw,20px);maxWidth:44ch;textWrap:pretty;margin:0;color:rgba(245,243,239,0.78)">Il existe des vêtements que l'on porte. Et il existe des vêtements qui portent une conviction.</p>
+        <div style="display:flex;gap:12px;flexWrap:wrap;marginTop:6px">
+          <button onClick="{{ goCatalogue }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 26px;cursor:pointer">Voir les collections</button>
+          <button onClick="{{ goManifeste }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.4);fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 26px;cursor:pointer">Lire le manifeste</button>
+        </div>
+      </div>
+      <div style="display:flex;alignItems:center;justifyContent:center;padding:48px;minHeight:360px;borderLeft:2px solid rgba(245,243,239,0.18)">
+        <img src="assets/sulvo-logo-gold.png" alt="SULVO — Wear your purpose" style="width:100%;maxWidth:430px">
+      </div>
+    </section>
+
+    <section style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(210px,1fr));borderBottom:2px solid rgba(245,243,239,0.18)">
+      <sc-for list="{{ collections }}" as="c" hint-placeholder-count="4">
+        <button onClick="{{ c.open }}" style="all:unset;cursor:pointer;padding:26px 24px;borderRight:1px solid rgba(245,243,239,0.14);display:flex;flexDirection:column;gap:6px">
+          <span style="fontWeight:800;fontSize:clamp(22px,2.4vw,30px);color:#f5f3ef">{{ c.name }}</span>
+          <span style="fontSize:12px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">{{ c.line }}</span>
+          <span style="fontSize:13px;color:rgba(245,243,239,0.6)">{{ c.count }} pièces</span>
+        </button>
+      </sc-for>
+    </section>
+
+    <section style="padding:clamp(28px,4vw,58px) clamp(20px,4vw,48px)">
+      <div style="display:flex;alignItems:flex-end;justifyContent:space-between;gap:16px;flexWrap:wrap;marginBottom:18px">
+        <h2 style="margin:0;fontSize:clamp(26px,3vw,40px);fontWeight:800">Pièces en avant</h2>
+        <button onClick="{{ goCatalogue }}" style="background:none;border:0;color:#c9a227;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;cursor:pointer">Tout le catalogue →</button>
+      </div>
+      <div style="height:2px;background:rgba(245,243,239,0.18);marginBottom:26px"></div>
+      <div style="display:grid;gridTemplateColumns:repeat(auto-fill,minmax(240px,1fr));gap:26px">
+        <sc-for list="{{ featured }}" as="p" hint-placeholder-count="4">
+          <article style="display:flex;flexDirection:column;gap:12px">
+            <button onClick="{{ p.open }}" style="all:unset;cursor:pointer;display:block">
+              <div style="position:relative;aspectRatio:3 / 4;background:#141312;border:1px solid rgba(245,243,239,0.16);overflow:hidden">
+                <div style="{{ p.imgStyle }}"></div>
+                <span style="position:absolute;left:0;bottom:0;background:#c9a227;color:#0b0b0b;fontWeight:800;fontSize:11px;letterSpacing:0.12em;padding:6px 10px;textTransform:uppercase">{{ p.collection }}</span>
+              </div>
+            </button>
+            <div style="display:flex;justifyContent:space-between;gap:12px;alignItems:baseline">
+              <span style="fontWeight:800;fontSize:15px">{{ p.name }}</span>
+              <span style="fontSize:14px;whiteSpace:nowrap;color:#c9a227">{{ p.priceLabel }}</span>
+            </div>
+            <div style="fontSize:12px;color:rgba(245,243,239,0.55)">{{ p.colorLabel }} · {{ p.stockLabel }}</div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(260px,1fr));borderTop:2px solid rgba(245,243,239,0.18)">
+      <img src="assets/produits/campagne.jpeg" alt="Campagne SULVO" style="width:100%;height:100%;minHeight:280px;objectFit:cover">
+      <img src="assets/produits/campagne-b.jpeg" alt="Collection Manifeste portée" style="width:100%;height:100%;minHeight:280px;objectFit:cover">
+      <img src="assets/produits/campagne-c.jpeg" alt="Collection Patience portée" style="width:100%;height:100%;minHeight:280px;objectFit:cover">
+    </section>
+
+    <section style="borderTop:2px solid rgba(245,243,239,0.18);padding:clamp(34px,5vw,78px) clamp(20px,4vw,48px);background:#141312">
+      <div style="fontSize:11px;letterSpacing:0.26em;textTransform:uppercase;marginBottom:18px;color:#c9a227">Notre manifeste</div>
+      <p style="fontWeight:800;fontSize:clamp(28px,4.6vw,62px);lineHeight:1.03;maxWidth:24ch;margin:0;letterSpacing:-0.02em">La plus grande victoire est celle que l'on remporte sur soi-même.</p>
+    </section>
+
+    <section style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(280px,1fr))">
+      <div style="padding:clamp(24px,3vw,48px);borderRight:1px solid rgba(245,243,239,0.14);borderTop:2px solid rgba(245,243,239,0.18)">
+        <h3 style="marginTop:0;fontWeight:800">Nos valeurs</h3>
+        <div style="display:flex;flexDirection:column;gap:12px;marginTop:20px">
+          <sc-for list="{{ valeurs }}" as="v" hint-placeholder-count="5">
+            <div style="display:grid;gridTemplateColumns:150px 1fr;gap:16px;alignItems:start;borderTop:1px solid rgba(245,243,239,0.14);paddingTop:12px">
+              <span style="fontWeight:800;fontSize:13px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">{{ v.title }}</span>
+              <span style="fontSize:14px;color:rgba(245,243,239,0.8)">{{ v.body }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding:clamp(24px,3vw,48px);borderTop:2px solid rgba(245,243,239,0.18)">
+        <h3 style="marginTop:0;fontWeight:800">Avis de la communauté</h3>
+        <div style="display:flex;flexDirection:column;gap:14px;marginTop:20px">
+          <sc-for list="{{ homeReviews }}" as="r" hint-placeholder-count="3">
+            <div style="border:1px solid rgba(245,243,239,0.16);padding:16px;background:#141312">
+              <div style="display:flex;justifyContent:space-between;gap:12px">
+                <span style="fontWeight:800;fontSize:13px">{{ r.author }}</span>
+                <span style="color:#c9a227;fontSize:13px">{{ r.stars }}</span>
+              </div>
+              <p style="margin:8px 0 0;fontSize:14px;color:rgba(245,243,239,0.8)">{{ r.text }}</p>
+              <div style="fontSize:11px;marginTop:6px;color:rgba(245,243,239,0.45)">{{ r.productName }} · {{ r.date }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- MANIFESTE -->
+  <sc-if value="{{ isManifeste }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(28px,4vw,64px) clamp(20px,4vw,48px);maxWidth:900px">
+      <h1 style="fontSize:clamp(32px,5vw,56px);marginTop:0;fontWeight:800">L'histoire</h1>
+      <div style="height:2px;background:#c9a227;width:96px;margin:0 0 28px"></div>
+      <p style="fontSize:18px;color:rgba(245,243,239,0.85)">Je m'appelle Sherif Ibrahima Ndiaye. Beaucoup me connaissent sous le nom de Le Beau Sultan.</p>
+      <p style="fontSize:18px;color:rgba(245,243,239,0.85)">Comme beaucoup, j'ai connu des projets qui n'ont pas duré, des déceptions et des remises en question. J'aurais pu considérer ces moments comme des échecs. J'ai choisi d'y voir des leçons.</p>
+      <p style="fontSize:18px;color:rgba(245,243,239,0.85)">C'est dans cet état d'esprit qu'est née SULVO. Non pas après une victoire. Mais après une transformation.</p>
+      <p style="fontSize:18px;color:rgba(245,243,239,0.85)">Cette marque raconte une idée simple. Peu importe ton passé. Peu importe le regard des autres. La seule personne que tu dois dépasser est celle que tu étais hier.</p>
+      <div style="height:2px;background:rgba(245,243,239,0.18);margin:34px 0"></div>
+      <h2 style="fontWeight:800">Notre mission</h2>
+      <p style="fontSize:18px;color:rgba(245,243,239,0.85)">Créer des vêtements qui donnent du sens. Chaque pièce raconte une histoire. Chaque design porte un message. Chaque collection invite à avancer avec confiance, discipline et courage.</p>
+      <p style="fontSize:18px;color:rgba(245,243,239,0.85)">Nous ne créons pas seulement des vêtements. Nous créons des rappels. Des rappels de croire en soi. De rester fidèle à ses principes. De continuer, même lorsque personne n'applaudit.</p>
+      <button onClick="{{ goCatalogue }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 26px;cursor:pointer;marginTop:20px">Porte ton histoire</button>
+    </section>
+  </sc-if>
+
+  <!-- CATALOGUE -->
+  <sc-if value="{{ isCatalogue }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(24px,3vw,44px) clamp(20px,4vw,48px)">
+      <h1 style="marginTop:0;fontSize:clamp(30px,4vw,48px);fontWeight:800">Collections</h1>
+      <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 20px"></div>
+      <div style="display:flex;gap:8px;flexWrap:wrap;alignItems:center;marginBottom:10px">
+        <sc-for list="{{ categories }}" as="c" hint-placeholder-count="5">
+          <button onClick="{{ c.select }}" style="{{ c.style }}">{{ c.label }}</button>
+        </sc-for>
+        <span style="marginLeft:auto;display:flex;gap:8px;alignItems:center">
+          <span style="fontSize:12px;color:rgba(245,243,239,0.55)">Trier</span>
+          <select value="{{ sort }}" onChange="{{ onSort }}" style="width:190px;background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:9px 11px;fontSize:13px">
+            <option value="new">Nouveautés</option>
+            <option value="asc">Prix croissant</option>
+            <option value="desc">Prix décroissant</option>
+            <option value="rating">Mieux notés</option>
+          </select>
+        </span>
+      </div>
+      <div style="fontSize:12px;marginBottom:24px;color:rgba(245,243,239,0.55)">{{ resultLabel }}</div>
+      <div style="display:grid;gridTemplateColumns:repeat(auto-fill,minmax(245px,1fr));gap:28px">
+        <sc-for list="{{ catalogue }}" as="p" hint-placeholder-count="8">
+          <article style="display:flex;flexDirection:column;gap:12px">
+            <button onClick="{{ p.open }}" style="all:unset;cursor:pointer;display:block">
+              <div style="position:relative;aspectRatio:3 / 4;background:#141312;border:1px solid rgba(245,243,239,0.16);overflow:hidden">
+                <div style="{{ p.imgStyle }}"></div>
+                <span style="position:absolute;left:0;bottom:0;background:#c9a227;color:#0b0b0b;fontWeight:800;fontSize:11px;letterSpacing:0.12em;padding:6px 10px;textTransform:uppercase">{{ p.collection }}</span>
+                <sc-if value="{{ p.isLow }}" hint-placeholder-val="{{ false }}">
+                  <span style="position:absolute;right:0;top:0;background:#0b0b0b;color:#c9a227;border:1px solid #c9a227;fontSize:10px;letterSpacing:0.12em;padding:5px 9px;textTransform:uppercase">{{ p.lowLabel }}</span>
+                </sc-if>
+              </div>
+            </button>
+            <div style="display:flex;justifyContent:space-between;gap:12px;alignItems:baseline">
+              <span style="fontWeight:800;fontSize:15px">{{ p.name }}</span>
+              <span style="fontSize:14px;whiteSpace:nowrap;color:#c9a227">{{ p.priceLabel }}</span>
+            </div>
+            <div style="display:flex;gap:6px;alignItems:center">
+              <sc-for list="{{ p.swatches }}" as="s" hint-placeholder-count="2">
+                <span style="{{ s.style }}" title="{{ s.name }}"></span>
+              </sc-for>
+              <span style="fontSize:12px;color:rgba(245,243,239,0.55);marginLeft:4px">{{ p.stockLabel }}</span>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- FICHE PRODUIT -->
+  <sc-if value="{{ isProduit }}" hint-placeholder-val="{{ false }}">
+    <section style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(320px,1fr));borderBottom:2px solid rgba(245,243,239,0.18)">
+      <div style="display:flex;flexDirection:column;borderRight:1px solid rgba(245,243,239,0.14)">
+        <div style="position:relative;flex:1;minHeight:460px;background:#171615;overflow:hidden">
+          <div style="{{ product.imgStyleLarge }}"></div>
+        </div>
+        <div style="display:flex;gap:8px;padding:12px;flexWrap:wrap;borderTop:1px solid rgba(245,243,239,0.14)">
+          <sc-for list="{{ product.views }}" as="v" hint-placeholder-count="3">
+            <button onClick="{{ v.select }}" style="{{ v.style }}"></button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding:clamp(24px,3vw,48px);display:flex;flexDirection:column;gap:14px">
+        <button onClick="{{ goCatalogue }}" style="background:none;border:0;color:#c9a227;fontFamily:Archivo;fontWeight:800;fontSize:12px;padding:0;alignSelf:flex-start;cursor:pointer">← Collections</button>
+        <span style="fontSize:11px;letterSpacing:0.2em;textTransform:uppercase;color:#c9a227">{{ product.collection }}</span>
+        <h1 style="margin:0;fontSize:clamp(28px,3.4vw,44px);fontWeight:800">{{ product.name }}</h1>
+        <div style="fontSize:26px;fontWeight:800;color:#c9a227">{{ product.priceLabel }}</div>
+        <p style="margin:0;fontSize:15px;maxWidth:52ch;color:rgba(245,243,239,0.8)">{{ product.description }}</p>
+        <div style="height:2px;background:rgba(245,243,239,0.18);margin:6px 0"></div>
+        <div>
+          <div style="fontSize:12px;letterSpacing:0.14em;textTransform:uppercase;marginBottom:10px;color:rgba(245,243,239,0.6)">Couleur — {{ colorName }}</div>
+          <div style="display:flex;gap:10px;flexWrap:wrap">
+            <sc-for list="{{ product.colorOptions }}" as="c" hint-placeholder-count="2">
+              <button onClick="{{ c.select }}" style="{{ c.style }}" title="{{ c.name }}"></button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="marginTop:6px">
+          <div style="fontSize:12px;letterSpacing:0.14em;textTransform:uppercase;marginBottom:10px;color:rgba(245,243,239,0.6)">Taille</div>
+          <div style="display:flex;gap:8px;flexWrap:wrap">
+            <sc-for list="{{ product.sizeOptions }}" as="s" hint-placeholder-count="4">
+              <button onClick="{{ s.select }}" disabled="{{ s.disabled }}" style="{{ s.style }}">{{ s.label }}</button>
+            </sc-for>
+          </div>
+          <div style="fontSize:12px;marginTop:10px;color:rgba(245,243,239,0.55)">{{ product.stockDetail }}</div>
+        </div>
+        <div style="display:flex;gap:10px;alignItems:center;flexWrap:wrap;marginTop:8px">
+          <div style="display:flex;border:1px solid rgba(245,243,239,0.3)">
+            <button onClick="{{ qtyDown }}" style="background:none;border:0;color:#f5f3ef;minWidth:42px;padding:12px 0;fontSize:16px;cursor:pointer">−</button>
+            <span style="display:flex;alignItems:center;justifyContent:center;minWidth:46px;fontWeight:800">{{ qty }}</span>
+            <button onClick="{{ qtyUp }}" style="background:none;border:0;color:#f5f3ef;minWidth:42px;padding:12px 0;fontSize:16px;cursor:pointer">+</button>
+          </div>
+          <button onClick="{{ addToCart }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 28px;cursor:pointer">{{ addLabel }}</button>
+        </div>
+        <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(150px,1fr));gap:14px;marginTop:18px;borderTop:2px solid rgba(245,243,239,0.18);paddingTop:18px">
+          <div><div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Livraison</div><div style="fontSize:13px;color:rgba(245,243,239,0.7)">Mondiale, 48h à Dakar</div></div>
+          <div><div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Retour</div><div style="fontSize:13px;color:rgba(245,243,239,0.7)">14 jours, sans frais</div></div>
+          <div><div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Référence</div><div style="fontSize:13px;color:rgba(245,243,239,0.7)">{{ product.sku }}</div></div>
+        </div>
+      </div>
+    </section>
+    <section style="padding:clamp(24px,3vw,44px) clamp(20px,4vw,48px);display:grid;gridTemplateColumns:repeat(auto-fit,minmax(300px,1fr));gap:44px">
+      <div>
+        <h3 style="marginTop:0;fontWeight:800">Avis ({{ product.reviewCount }}) · <span style="color:#c9a227">{{ product.ratingLabel }}</span></h3>
+        <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 18px"></div>
+        <div style="display:flex;flexDirection:column;gap:14px">
+          <sc-for list="{{ product.reviews }}" as="r" hint-placeholder-count="2">
+            <div style="borderBottom:1px solid rgba(245,243,239,0.14);paddingBottom:12px">
+              <div style="display:flex;justifyContent:space-between;gap:12px">
+                <span style="fontWeight:800;fontSize:13px">{{ r.author }}</span>
+                <span style="color:#c9a227;fontSize:13px">{{ r.stars }}</span>
+              </div>
+              <p style="margin:6px 0 0;fontSize:14px;color:rgba(245,243,239,0.8)">{{ r.text }}</p>
+              <div style="fontSize:11px;color:rgba(245,243,239,0.45)">{{ r.date }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <h3 style="marginTop:0;fontWeight:800">Laisser un avis</h3>
+        <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 18px"></div>
+        <div style="display:flex;flexDirection:column;gap:14px;maxWidth:420px">
+          <div>
+            <div style="fontSize:12px;letterSpacing:0.12em;textTransform:uppercase;marginBottom:8px;color:rgba(245,243,239,0.6)">Note</div>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ ratingOptions }}" as="o" hint-placeholder-count="5">
+                <button onClick="{{ o.select }}" style="{{ o.style }}">{{ o.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <div style="fontSize:12px;letterSpacing:0.12em;textTransform:uppercase;marginBottom:8px;color:rgba(245,243,239,0.6)">Votre nom</div>
+            <input value="{{ reviewName }}" onChange="{{ onReviewName }}" placeholder="Nom affiché" style="width:100%;background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px">
+          </div>
+          <div>
+            <div style="fontSize:12px;letterSpacing:0.12em;textTransform:uppercase;marginBottom:8px;color:rgba(245,243,239,0.6)">Votre avis</div>
+            <textarea value="{{ reviewText }}" onChange="{{ onReviewText }}" rows="4" placeholder="Coupe, matière, ressenti" style="width:100%;background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px"></textarea>
+          </div>
+          <button onClick="{{ submitReview }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;padding:14px 20px;cursor:pointer;alignSelf:flex-start">Envoyer l'avis</button>
+          <div style="fontSize:12px;color:rgba(245,243,239,0.5)">Les avis passent en modération dans le back-office avant publication.</div>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- PANIER -->
+  <sc-if value="{{ isPanier }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(24px,3vw,44px) clamp(20px,4vw,48px)">
+      <h1 style="marginTop:0;fontSize:clamp(30px,4vw,48px);fontWeight:800">Panier</h1>
+      <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 24px"></div>
+      <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px 0;maxWidth:520px">
+          <p style="fontSize:18px;color:rgba(245,243,239,0.8)">Ton panier est vide. Chaque pièce raconte une histoire — choisis la tienne.</p>
+          <button onClick="{{ goCatalogue }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 24px;cursor:pointer">Parcourir les collections</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(300px,1fr));gap:40px;alignItems:start">
+          <div style="display:flex;flexDirection:column">
+            <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="2">
+              <div style="display:grid;gridTemplateColumns:76px 1fr auto;gap:16px;alignItems:center;padding:16px 0;borderBottom:1px solid rgba(245,243,239,0.14)">
+                <div style="position:relative;height:96px;background:#141312;border:1px solid rgba(245,243,239,0.16);overflow:hidden">
+                  <div style="{{ l.imgStyle }}"></div>
+                </div>
+                <div>
+                  <div style="fontWeight:800;fontSize:15px">{{ l.name }}</div>
+                  <div style="fontSize:12px;color:rgba(245,243,239,0.55)">{{ l.variantLabel }} · {{ l.unitLabel }}</div>
+                  <div style="display:flex;gap:6px;alignItems:center;marginTop:10px">
+                    <button onClick="{{ l.dec }}" style="background:transparent;border:1px solid rgba(245,243,239,0.3);color:#f5f3ef;minWidth:32px;padding:5px 0;cursor:pointer">−</button>
+                    <span style="minWidth:28px;textAlign:center;fontWeight:800">{{ l.qty }}</span>
+                    <button onClick="{{ l.inc }}" style="background:transparent;border:1px solid rgba(245,243,239,0.3);color:#f5f3ef;minWidth:32px;padding:5px 0;cursor:pointer">+</button>
+                    <button onClick="{{ l.remove }}" style="background:none;border:0;color:#c9a227;fontSize:12px;cursor:pointer;marginLeft:6px">Retirer</button>
+                  </div>
+                </div>
+                <div style="fontWeight:800;fontSize:15px;whiteSpace:nowrap">{{ l.totalLabel }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <aside style="border:1px solid rgba(201,162,39,0.4);padding:24px;background:#141312">
+            <h4 style="marginTop:0;fontWeight:800">Récapitulatif</h4>
+            <div style="height:1px;background:rgba(245,243,239,0.18);margin:14px 0"></div>
+            <div style="display:flex;justifyContent:space-between;fontSize:14px;marginBottom:8px"><span style="whiteSpace:nowrap">Sous-total</span><span>{{ subtotalLabel }}</span></div>
+            <div style="height:1px;background:rgba(245,243,239,0.18);margin:14px 0"></div>
+            <div style="display:flex;justifyContent:space-between;fontWeight:800;fontSize:20px"><span>Total</span><span style="color:#c9a227">{{ totalLabel }}</span></div>
+            <button onClick="{{ goCheckout }}" style="width:100%;background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:15px;cursor:pointer;marginTop:20px">Passer commande</button>
+            <div style="fontSize:12px;marginTop:10px;color:rgba(245,243,239,0.55)">{{ freeShipNote }}</div>
+          </aside>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <!-- CHECKOUT -->
+  <sc-if value="{{ isCheckout }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(24px,3vw,44px) clamp(20px,4vw,48px)">
+      <h1 style="marginTop:0;fontSize:clamp(30px,4vw,48px);fontWeight:800">Commande</h1>
+      <div style="display:flex;flexWrap:wrap;marginTop:12px;borderTop:2px solid rgba(245,243,239,0.18);borderBottom:2px solid rgba(245,243,239,0.18)">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+          <div style="{{ s.style }}">{{ s.label }}</div>
+        </sc-for>
+      </div>
+      <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(320px,1fr));gap:44px;alignItems:start;marginTop:30px">
+        <div>
+          <sc-if value="{{ step1 }}" hint-placeholder-val="{{ false }}">
+            <h3 style="marginTop:0;fontWeight:800">Livraison</h3>
+            <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 20px"></div>
+            <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(180px,1fr));gap:14px">
+              <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Nom complet<input value="{{ form.nom }}" onChange="{{ onNom }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+              <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">E-mail<input value="{{ form.email }}" onChange="{{ onEmail }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+              <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Téléphone<input value="{{ form.tel }}" onChange="{{ onTel }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+              <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Ville<input value="{{ form.ville }}" onChange="{{ onVille }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+              <label style="gridColumn:1/-1;display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Adresse<input value="{{ form.adresse }}" onChange="{{ onAdresse }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+              <label style="gridColumn:1/-1;display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Pays<input value="{{ form.pays }}" onChange="{{ onPays }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+            </div>
+            <h4 style="marginTop:30px;fontWeight:800">Zone de livraison</h4>
+            <div style="display:flex;flexDirection:column;borderTop:1px solid rgba(245,243,239,0.14)">
+              <sc-for list="{{ shippingOptions }}" as="o" hint-placeholder-count="4">
+                <button onClick="{{ o.select }}" style="{{ o.style }}">
+                  <span style="display:flex;flexDirection:column;alignItems:flex-start">
+                    <span style="fontWeight:800;fontSize:14px">{{ o.label }}</span>
+                  </span>
+                </button>
+              </sc-for>
+            </div>
+            <button onClick="{{ next }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 24px;cursor:pointer;marginTop:26px">Vérifier ma commande</button>
+          </sc-if>
+          <sc-if value="{{ step3 }}" hint-placeholder-val="{{ false }}">
+            <h3 style="marginTop:0;fontWeight:800">Vérification</h3>
+            <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 20px"></div>
+            <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(220px,1fr));gap:20px;marginBottom:26px">
+              <div><div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Livrer à</div><div style="fontSize:14px">{{ recapAdresse }}</div></div>
+              <div><div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Transport</div><div style="fontSize:14px">{{ recapLivraison }}</div></div>
+              <div><div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Validation</div><div style="fontSize:14px">{{ recapPaiement }}</div></div>
+            </div>
+            <div style="display:flex;flexDirection:column;borderTop:1px solid rgba(245,243,239,0.14)">
+              <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="2">
+                <div style="display:flex;justifyContent:space-between;gap:12px;padding:11px 0;borderBottom:1px solid rgba(245,243,239,0.14);fontSize:14px">
+                  <span>{{ l.qty }} × {{ l.name }} — {{ l.variantLabel }}</span><span>{{ l.totalLabel }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:12px;marginTop:26px;flexWrap:wrap">
+              <button onClick="{{ back }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.4);fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 24px;cursor:pointer">Retour</button>
+              <button onClick="{{ placeOrder }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 30px;cursor:pointer">Envoyer ma commande sur WhatsApp</button>
+            </div>
+          </sc-if>
+        </div>
+        <aside style="border:1px solid rgba(201,162,39,0.4);padding:24px;background:#141312">
+          <h4 style="marginTop:0;fontWeight:800">Total</h4>
+          <div style="height:1px;background:rgba(245,243,239,0.18);margin:14px 0"></div>
+          <div style="display:flex;justifyContent:space-between;fontSize:14px;marginBottom:8px"><span style="whiteSpace:nowrap">Articles ({{ cartCount }})</span><span>{{ subtotalLabel }}</span></div>
+          <div style="height:1px;background:rgba(245,243,239,0.18);margin:14px 0"></div>
+          <div style="display:flex;justifyContent:space-between;fontWeight:800;fontSize:20px"><span>Total</span><span style="color:#c9a227">{{ totalLabel }}</span></div>
+        </aside>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- CONFIRMATION -->
+  <sc-if value="{{ isConfirmation }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(32px,5vw,72px) clamp(20px,4vw,48px);maxWidth:780px">
+      <span style="fontSize:11px;letterSpacing:0.26em;textTransform:uppercase;color:#c9a227">Commande confirmée</span>
+      <h1 style="fontSize:clamp(30px,4.4vw,52px);marginTop:14px;fontWeight:800">Merci. Ton histoire est en route.</h1>
+      <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 26px"></div>
+      <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(180px,1fr));gap:22px;marginBottom:24px">
+        <div><div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Référence</div><div style="fontWeight:800;fontSize:18px">{{ lastOrder.ref }}</div></div>
+        <div><div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Montant</div><div style="fontWeight:800;fontSize:18px">{{ lastOrder.totalLabel }}</div></div>
+        <div><div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Zone</div><div style="fontWeight:800;fontSize:18px">{{ lastOrder.shipping }}</div></div>
+      </div>
+      <p style="color:rgba(245,243,239,0.8)">Ta commande part sur WhatsApp. Si la fenêtre ne s'est pas ouverte, utilise le bouton ci-dessous : Sultan confirme la livraison et le règlement directement dans la conversation.</p>
+      <div style="display:flex;gap:12px;flexWrap:wrap;marginTop:22px">
+        <a href="{{ lastOrder.waLink }}" target="_blank" rel="noopener" style="background:#25d366;color:#0b0b0b;textDecoration:none;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 24px">Ouvrir WhatsApp</a>
+        <button onClick="{{ goCompte }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 24px;cursor:pointer">Suivre ma commande</button>
+        <button onClick="{{ goCatalogue }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.4);fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 24px;cursor:pointer">Continuer les achats</button>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- CONNEXION -->
+  <sc-if value="{{ isAuth }}" hint-placeholder-val="{{ false }}">
+    <section style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(320px,1fr));minHeight:70vh">
+      <div style="padding:clamp(28px,4vw,64px);display:flex;flexDirection:column;justifyContent:center;maxWidth:520px">
+        <h1 style="marginTop:0;fontSize:clamp(28px,3.6vw,44px);fontWeight:800">{{ authTitle }}</h1>
+        <div style="height:2px;background:#c9a227;width:80px;margin:0 0 24px"></div>
+        <sc-if value="{{ hasAuthNotice }}" hint-placeholder-val="{{ false }}">
+          <div style="border:1px solid rgba(201,162,39,0.5);background:rgba(201,162,39,0.09);padding:14px 16px;fontSize:13px;color:#f5f3ef;marginBottom:22px">{{ authNotice }}</div>
+        </sc-if>
+        <div style="display:flex;gap:2px;marginBottom:22px">
+          <sc-for list="{{ authModes }}" as="m" hint-placeholder-count="2">
+            <button onClick="{{ m.select }}" style="{{ m.style }}">{{ m.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;flexDirection:column;gap:14px">
+          <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+            <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Nom complet<input value="{{ form.nom }}" onChange="{{ onNom }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+          </sc-if>
+          <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">E-mail<input type="email" value="{{ form.email }}" onChange="{{ onEmail }}" onKeyDown="{{ onAuthKey }}" placeholder="toi@exemple.com" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+          <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Mot de passe<input type="password" value="{{ form.pass }}" onChange="{{ onPass }}" onKeyDown="{{ onAuthKey }}" placeholder="8 caractères minimum" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+          <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+            <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Confirmer le mot de passe<input type="password" value="{{ form.pass2 }}" onChange="{{ onPass2 }}" onKeyDown="{{ onAuthKey }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+          </sc-if>
+          <sc-if value="{{ hasAuthError }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid rgba(224,103,76,0.6);background:rgba(224,103,76,0.1);color:#e0674c;fontSize:13px;fontWeight:800;padding:12px 14px">{{ authError }}</div>
+          </sc-if>
+          <button onClick="{{ login }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px;cursor:pointer">{{ authCta }}</button>
+          <div style="fontSize:12px;color:rgba(245,243,239,0.5);lineHeight:1.6">{{ authHint }}</div>
+        </div>
+      </div>
+      <div style="borderLeft:2px solid rgba(245,243,239,0.18);padding:clamp(28px,4vw,64px);display:flex;flexDirection:column;justifyContent:center;gap:18px">
+        <img src="assets/sulvo-logo-gold.png" alt="SULVO" style="width:210px">
+        <p style="fontWeight:800;fontSize:clamp(22px,2.6vw,34px);lineHeight:1.1;margin:0">SULVO n'est pas un titre. C'est un état d'esprit.</p>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- COMPTE -->
+  <sc-if value="{{ isCompte }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(24px,3vw,44px) clamp(20px,4vw,48px)">
+      <div style="display:flex;justifyContent:space-between;alignItems:flex-end;gap:16px;flexWrap:wrap">
+        <div>
+          <h1 style="marginTop:0;marginBottom:4px;fontSize:clamp(28px,3.6vw,44px);fontWeight:800">Mon compte</h1>
+          <div style="fontSize:13px;color:rgba(245,243,239,0.6)">{{ userLine }}</div>
+        </div>
+        <button onClick="{{ logout }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.4);fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:11px 16px;cursor:pointer">Se déconnecter</button>
+      </div>
+      <div style="height:2px;background:rgba(245,243,239,0.18);margin:20px 0 24px"></div>
+      <div style="display:flex;flexWrap:wrap;gap:2px;marginBottom:26px">
+        <sc-for list="{{ accountTabs }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.select }}" style="{{ t.style }}">{{ t.label }}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ tabCommandes }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flexDirection:column;gap:16px">
+          <sc-for list="{{ myOrders }}" as="o" hint-placeholder-count="3">
+            <div style="border:1px solid rgba(245,243,239,0.16);padding:20px;background:#141312">
+              <div style="display:flex;justifyContent:space-between;gap:16px;flexWrap:wrap;alignItems:baseline">
+                <div>
+                  <div style="fontWeight:800;fontSize:17px">{{ o.ref }}</div>
+                  <div style="fontSize:12px;color:rgba(245,243,239,0.55)">{{ o.date }} · {{ o.itemsLabel }}</div>
+                </div>
+                <span style="{{ o.tagStyle }}">{{ o.status }}</span>
+                <div style="fontWeight:800;fontSize:17px;color:#c9a227">{{ o.totalLabel }}</div>
+              </div>
+              <div style="display:flex;gap:6px;marginTop:16px;flexWrap:wrap">
+                <sc-for list="{{ o.track }}" as="t" hint-placeholder-count="4">
+                  <div style="{{ t.style }}">{{ t.label }}</div>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:10px;marginTop:16px;flexWrap:wrap;alignItems:center">
+                <button onClick="{{ o.open }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.35);fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:10px 14px;cursor:pointer">Détail</button>
+                <sc-if value="{{ o.canReturn }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ o.askReturn }}" style="background:none;border:0;color:#c9a227;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;fontWeight:800;cursor:pointer">Demander un retour</button>
+                </sc-if>
+                <sc-if value="{{ o.hasReturn }}" hint-placeholder-val="{{ false }}">
+                  <span style="border:1px solid rgba(201,162,39,0.6);color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;padding:5px 9px">Retour : {{ o.returnStatus }}</span>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noOrders }}" hint-placeholder-val="{{ false }}">
+            <p style="color:rgba(245,243,239,0.7)">Aucune commande pour l'instant.</p>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tabDetail }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(300px,1fr));gap:44px;alignItems:start">
+          <div>
+            <h3 style="marginTop:0;fontWeight:800">{{ openOrder.ref }}</h3>
+            <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 16px"></div>
+            <div style="display:flex;flexDirection:column">
+              <sc-for list="{{ openOrder.items }}" as="i" hint-placeholder-count="2">
+                <div style="display:flex;justifyContent:space-between;gap:12px;padding:12px 0;borderBottom:1px solid rgba(245,243,239,0.14);fontSize:14px">
+                  <span>{{ i.qty }} × {{ i.name }} — {{ i.variantLabel }}</span><span>{{ i.totalLabel }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;justifyContent:space-between;marginTop:16px;fontWeight:800;fontSize:18px"><span>Total payé</span><span style="color:#c9a227">{{ openOrder.totalLabel }}</span></div>
+            <h4 style="marginTop:34px;fontWeight:800">Suivi</h4>
+            <div style="display:flex;flexDirection:column;borderTop:2px solid rgba(245,243,239,0.18)">
+              <sc-for list="{{ openOrder.timeline }}" as="t" hint-placeholder-count="4">
+                <div style="display:grid;gridTemplateColumns:24px 1fr auto;gap:14px;alignItems:center;padding:14px 0;borderBottom:1px solid rgba(245,243,239,0.14)">
+                  <span style="{{ t.dot }}"></span>
+                  <span style="{{ t.text }}">{{ t.label }}</span>
+                  <span style="fontSize:12px;color:rgba(245,243,239,0.5)">{{ t.date }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <aside style="border:1px solid rgba(245,243,239,0.16);padding:24px;background:#141312">
+            <h4 style="marginTop:0;fontWeight:800">Informations</h4>
+            <div style="height:1px;background:rgba(245,243,239,0.18);margin:14px 0"></div>
+            <div style="fontSize:13px;display:flex;flexDirection:column;gap:14px">
+              <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227">Adresse</div>{{ openOrder.adresse }}</div>
+              <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227">Transport</div>{{ openOrder.shipping }}</div>
+              <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227">Paiement</div>{{ openOrder.payment }}</div>
+              <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227">Numéro de suivi</div>{{ openOrder.tracking }}</div>
+            </div>
+            <button onClick="{{ backToOrders }}" style="width:100%;background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.35);fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:12px;cursor:pointer;marginTop:22px">Toutes mes commandes</button>
+          </aside>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tabRetours }}" hint-placeholder-val="{{ false }}">
+        <div style="maxWidth:640px">
+          <h3 style="marginTop:0;fontWeight:800">Retours</h3>
+          <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 18px"></div>
+          <sc-for list="{{ myReturns }}" as="r" hint-placeholder-count="1">
+            <div style="border:1px solid rgba(245,243,239,0.16);padding:18px;marginBottom:12px;background:#141312">
+              <div style="display:flex;justifyContent:space-between;gap:12px;flexWrap:wrap">
+                <span style="fontWeight:800">{{ r.ref }}</span>
+                <span style="{{ r.tagStyle }}">{{ r.status }}</span>
+              </div>
+              <div style="fontSize:13px;marginTop:8px;color:rgba(245,243,239,0.6)">Motif : {{ r.reason }} · Demandé le {{ r.date }}</div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noReturns }}" hint-placeholder-val="{{ false }}">
+            <p style="color:rgba(245,243,239,0.6)">Aucun retour en cours. Tu disposes de 14 jours après réception pour ouvrir un retour.</p>
+          </sc-if>
+          <div style="border:1px solid rgba(245,243,239,0.16);padding:22px;marginTop:20px;background:#141312">
+            <h4 style="marginTop:0;fontWeight:800">Ouvrir un retour</h4>
+            <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6);marginBottom:14px">Commande
+              <select value="{{ returnOrderRef }}" onChange="{{ onReturnOrder }}" style="background:#0b0b0b;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none">
+                <sc-for list="{{ returnableOrders }}" as="o" hint-placeholder-count="2">
+                  <option value="{{ o.ref }}">{{ o.label }}</option>
+                </sc-for>
+              </select>
+            </label>
+            <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6);marginBottom:16px">Motif
+              <select value="{{ returnReason }}" onChange="{{ onReturnReason }}" style="background:#0b0b0b;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none">
+                <option value="Taille inadaptée">Taille inadaptée</option>
+                <option value="Article défectueux">Article défectueux</option>
+                <option value="Ne correspond pas">Ne correspond pas</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </label>
+            <button onClick="{{ submitReturn }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;padding:14px 20px;cursor:pointer">Envoyer la demande</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ tabInfos }}" hint-placeholder-val="{{ false }}">
+        <div style="maxWidth:560px">
+          <h3 style="marginTop:0;fontWeight:800">Mes informations</h3>
+          <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 18px"></div>
+          <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
+            <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Nom complet<input value="{{ form.nom }}" onChange="{{ onNom }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+            <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">E-mail<input value="{{ form.email }}" onChange="{{ onEmail }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+            <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Téléphone<input value="{{ form.tel }}" onChange="{{ onTel }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+            <label style="display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Ville<input value="{{ form.ville }}" onChange="{{ onVille }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+            <label style="gridColumn:1/-1;display:flex;flexDirection:column;gap:6px;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;color:rgba(245,243,239,0.6)">Adresse de livraison<input value="{{ form.adresse }}" onChange="{{ onAdresse }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:11px 12px;fontSize:14px;letterSpacing:0;textTransform:none"></label>
+          </div>
+          <button onClick="{{ saveProfile }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.1em;textTransform:uppercase;padding:14px 20px;cursor:pointer;marginTop:18px">Enregistrer</button>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <!-- TABLEAU DE BORD -->
+  <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(20px,2.5vw,36px) clamp(20px,4vw,48px)">
+      <div style="display:flex;justifyContent:space-between;alignItems:flex-end;gap:16px;flexWrap:wrap">
+        <div>
+          <span style="fontSize:11px;letterSpacing:0.26em;textTransform:uppercase;color:#c9a227">Espace administrateur</span>
+          <h1 style="margin:6px 0 0;fontSize:clamp(26px,3.2vw,40px);fontWeight:800">Tableau de bord</h1>
+          <div style="fontSize:13px;color:rgba(245,243,239,0.6);marginTop:6px">{{ dashSubtitle }}</div>
+        </div>
+        <div style="display:flex;gap:8px;flexWrap:wrap">
+          <button onClick="{{ goGestion }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:12px 16px;cursor:pointer">Gestion de la boutique</button>
+          <button onClick="{{ goHome }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.4);fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:11px 16px;cursor:pointer">Voir la boutique</button>
+          <button onClick="{{ logout }}" style="background:transparent;color:rgba(245,243,239,0.75);border:1px solid rgba(245,243,239,0.28);fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:11px 16px;cursor:pointer">Se déconnecter</button>
+        </div>
+      </div>
+      <div style="height:2px;background:rgba(245,243,239,0.18);margin:20px 0 0"></div>
+      <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(168px,1fr));borderBottom:2px solid rgba(245,243,239,0.18);marginBottom:34px">
+        <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="7">
+          <div style="padding:16px 18px;borderRight:1px solid rgba(245,243,239,0.14);minWidth:0">
+            <div style="fontSize:10px;letterSpacing:0.12em;textTransform:uppercase;color:rgba(245,243,239,0.55)">{{ k.label }}</div>
+            <div style="fontWeight:800;fontSize:clamp(19px,1.7vw,25px);color:#c9a227;overflowWrap:break-word">{{ k.value }}</div>
+          </div>
+        </sc-for>
+      </div>
+        <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(300px,1fr));gap:40px;alignItems:start">
+          <div>
+            <h3 style="fontWeight:800;fontSize:20px;margin:0">Chiffre d'affaires</h3>
+            <div style="height:2px;background:rgba(245,243,239,0.18);margin:12px 0 18px"></div>
+            <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(150px,1fr));gap:20px">
+              <sc-for list="{{ caCards }}" as="c" hint-placeholder-count="4">
+                <div>
+                  <div style="fontSize:10px;letterSpacing:0.12em;textTransform:uppercase;color:rgba(245,243,239,0.55)">{{ c.label }}</div>
+                  <div style="fontWeight:800;fontSize:clamp(20px,1.9vw,27px);color:#c9a227;overflowWrap:break-word">{{ c.value }}</div>
+                  <div style="fontSize:12px;color:rgba(245,243,239,0.5)">{{ c.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <h3 style="fontWeight:800;fontSize:20px;margin:40px 0 0">Chiffre d'affaires par collection</h3>
+            <div style="height:2px;background:rgba(245,243,239,0.18);margin:12px 0 18px"></div>
+            <div style="display:flex;flexDirection:column;gap:14px">
+              <sc-for list="{{ caByCollection }}" as="c" hint-placeholder-count="4">
+                <div>
+                  <div style="display:flex;justifyContent:space-between;fontSize:13px;marginBottom:5px"><span style="fontWeight:800">{{ c.label }}</span><span style="color:#c9a227">{{ c.value }}</span></div>
+                  <div style="height:8px;background:rgba(245,243,239,0.12)"><div style="{{ c.barStyle }}"></div></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <h3 style="fontWeight:800;fontSize:20px;margin:0">Commandes par statut</h3>
+            <div style="height:2px;background:rgba(245,243,239,0.18);margin:12px 0 18px"></div>
+            <div style="display:flex;flexDirection:column">
+              <sc-for list="{{ statusRows }}" as="r" hint-placeholder-count="5">
+                <button onClick="{{ r.open }}" style="display:flex;justifyContent:space-between;alignItems:center;gap:12px;background:none;border:0;borderBottom:1px solid rgba(245,243,239,0.14);padding:13px 0;cursor:pointer;textAlign:left;fontFamily:Archivo;color:#f5f3ef">
+                  <span style="fontSize:13px">{{ r.label }}</span>
+                  <span style="display:flex;alignItems:center;gap:14px">
+                    <span style="fontSize:12px;color:rgba(245,243,239,0.55)">{{ r.amount }}</span>
+                    <span style="fontWeight:800;fontSize:18px;color:#c9a227;minWidth:34px;textAlign:right">{{ r.count }}</span>
+                  </span>
+                </button>
+              </sc-for>
+            </div>
+            <h3 style="fontWeight:800;fontSize:20px;margin:40px 0 0">Meilleures ventes</h3>
+            <div style="height:2px;background:rgba(245,243,239,0.18);margin:12px 0 18px"></div>
+            <div style="display:flex;flexDirection:column">
+              <sc-for list="{{ topSellers }}" as="t" hint-placeholder-count="5">
+                <div style="display:flex;justifyContent:space-between;gap:12px;padding:11px 0;borderBottom:1px solid rgba(245,243,239,0.12);fontSize:13px">
+                  <span><span style="color:#c9a227;fontWeight:800;marginRight:8px">{{ t.rank }}</span>{{ t.name }}</span>
+                  <span style="whiteSpace:nowrap;color:rgba(245,243,239,0.7)">{{ t.qty }} vendus · {{ t.amount }}</span>
+                </div>
+              </sc-for>
+              <sc-if value="{{ noTopSellers }}" hint-placeholder-val="{{ false }}">
+                <p style="fontSize:13px;color:rgba(245,243,239,0.55);margin:8px 0 0">Aucune vente enregistrée pour l'instant.</p>
+              </sc-if>
+            </div>
+            <h3 style="fontWeight:800;fontSize:20px;margin:40px 0 0">Derniers avis</h3>
+            <div style="height:2px;background:rgba(245,243,239,0.18);margin:12px 0 18px"></div>
+            <div style="display:flex;flexDirection:column;gap:14px">
+              <sc-for list="{{ latestReviews }}" as="r" hint-placeholder-count="3">
+                <div>
+                  <div style="display:flex;justifyContent:space-between;gap:10px;flexWrap:wrap;alignItems:baseline">
+                    <span style="fontSize:13px;fontWeight:800">{{ r.productName }} <span style="color:#c9a227;fontWeight:400">{{ r.stars }}</span></span>
+                    <span style="{{ r.tagStyle }}">{{ r.status }}</span>
+                  </div>
+                  <p style="fontSize:13px;color:rgba(245,243,239,0.7);margin:5px 0 0">{{ r.text }}</p>
+                  <div style="fontSize:11px;color:rgba(245,243,239,0.45);marginTop:4px">{{ r.author }} · {{ r.date }}</div>
+                </div>
+              </sc-for>
+              <button onClick="{{ goReviewsTab }}" style="alignSelf:flex-start;background:none;border:1px solid rgba(245,243,239,0.3);color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.08em;textTransform:uppercase;padding:10px 14px;cursor:pointer">Modérer tous les avis</button>
+            </div>
+          </div>
+        </div>
+      <div style="height:2px;background:rgba(245,243,239,0.18);margin:40px 0 22px"></div>
+      <div style="display:flex;gap:8px;flexWrap:wrap">
+        <sc-for list="{{ dashShortcuts }}" as="d" hint-placeholder-count="6">
+          <button onClick="{{ d.open }}" style="background:none;border:1px solid rgba(245,243,239,0.3);color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.08em;textTransform:uppercase;padding:11px 15px;cursor:pointer">{{ d.label }}</button>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ADMIN -->
+  <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(20px,2.5vw,36px) clamp(20px,4vw,48px)">
+      <div style="display:flex;justifyContent:space-between;alignItems:flex-end;gap:16px;flexWrap:wrap">
+        <div>
+          <span style="fontSize:11px;letterSpacing:0.26em;textTransform:uppercase;color:#c9a227">Back-office</span>
+          <h1 style="margin:6px 0 0;fontSize:clamp(26px,3.2vw,40px);fontWeight:800">Gestion de la boutique</h1>
+        </div>
+        <div style="display:flex;gap:8px;flexWrap:wrap">
+          <button onClick="{{ goDashboard }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:12px 16px;cursor:pointer">Tableau de bord</button>
+          <button onClick="{{ goHome }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.4);fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:11px 16px;cursor:pointer">Voir la boutique</button>
+          <button onClick="{{ logout }}" style="background:transparent;color:rgba(245,243,239,0.75);border:1px solid rgba(245,243,239,0.28);fontFamily:Archivo;fontWeight:800;fontSize:12px;letterSpacing:0.08em;textTransform:uppercase;padding:11px 16px;cursor:pointer">Se déconnecter</button>
+        </div>
+      </div>
+      <div style="height:2px;background:rgba(245,243,239,0.18);margin:20px 0 0"></div>
+      <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(168px,1fr));borderBottom:2px solid rgba(245,243,239,0.18);marginBottom:26px">
+        <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="7">
+          <div style="padding:16px 18px;borderRight:1px solid rgba(245,243,239,0.14);minWidth:0">
+            <div style="fontSize:10px;letterSpacing:0.12em;textTransform:uppercase;color:rgba(245,243,239,0.55)">{{ k.label }}</div>
+            <div style="fontWeight:800;fontSize:clamp(19px,1.7vw,25px);color:#c9a227;overflowWrap:break-word">{{ k.value }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flexWrap:wrap;gap:2px;marginBottom:26px">
+        <sc-for list="{{ adminTabs }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.select }}" style="{{ t.style }}">{{ t.label }}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ adminAccountsTab }}" hint-placeholder-val="{{ false }}">
+        <div style="fontSize:12px;color:rgba(245,243,239,0.55);marginBottom:14px">{{ accountsCount }} · les comptes sont créés depuis la page de connexion</div>
+        <div style="overflowX:auto">
+          <table style="width:100%;borderCollapse:collapse;fontSize:13px">
+            <thead><tr style="borderBottom:2px solid rgba(245,243,239,0.3)">
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Nom</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">E-mail</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Rôle</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Inscrit le</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Commandes</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Total dépensé</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Actions</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ accountRows }}" as="a" hint-placeholder-count="2">
+                <tr style="borderBottom:1px solid rgba(245,243,239,0.14)">
+                  <td style="padding:12px;fontWeight:800">{{ a.nom }}</td>
+                  <td style="padding:12px;color:rgba(245,243,239,0.7)">{{ a.email }}</td>
+                  <td style="padding:12px"><span style="{{ a.tagStyle }}">{{ a.roleLabel }}</span></td>
+                  <td style="padding:12px;color:rgba(245,243,239,0.6)">{{ a.created }}</td>
+                  <td style="padding:12px">{{ a.orders }}</td>
+                  <td style="padding:12px">{{ a.spend }}</td>
+                  <td style="padding:8px">
+                    <sc-if value="{{ a.notSelf }}" hint-placeholder-val="{{ true }}">
+                      <span style="display:flex;gap:6px;flexWrap:wrap">
+                        <button onClick="{{ a.promote }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 10px;cursor:pointer;whiteSpace:nowrap">{{ a.promoteLabel }}</button>
+                        <button onClick="{{ a.remove }}" style="background:none;border:1px solid rgba(224,103,76,0.6);color:#e0674c;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 10px;cursor:pointer;whiteSpace:nowrap">Supprimer</button>
+                      </span>
+                    </sc-if>
+                    <sc-if value="{{ a.isSelf }}" hint-placeholder-val="{{ false }}">
+                      <span style="fontSize:12px;color:rgba(245,243,239,0.5)">Session en cours</span>
+                    </sc-if>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ adminShipTab }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(180px,1fr));border:1px solid rgba(245,243,239,0.16);marginBottom:26px">
+          <sc-for list="{{ zones }}" as="z" hint-placeholder-count="4">
+            <div style="padding:16px 18px;borderRight:1px solid rgba(245,243,239,0.14)">
+              <div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">{{ z.label }}</div>
+              <div style="fontWeight:800;fontSize:26px">{{ z.count }}</div>
+              <div style="fontSize:12px;color:rgba(245,243,239,0.6)">{{ z.pending }} en cours</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="overflowX:auto">
+          <table style="width:100%;borderCollapse:collapse;fontSize:13px">
+            <thead><tr style="borderBottom:2px solid rgba(245,243,239,0.3)">
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Commande</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Client</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Zone</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Transporteur</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Nº de suivi</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Statut</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Action</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ shipQueue }}" as="q" hint-placeholder-count="3">
+                <tr style="borderBottom:1px solid rgba(245,243,239,0.14)">
+                  <td style="padding:12px;fontWeight:800;color:#c9a227">{{ q.ref }}</td>
+                  <td style="padding:12px">{{ q.client }}</td>
+                  <td style="padding:12px;color:rgba(245,243,239,0.7)">{{ q.zone }}</td>
+                  <td style="padding:12px">
+                    <select value="{{ q.carrier }}" onChange="{{ q.onCarrier }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:12px;padding:8px 10px;minWidth:170px">
+                      <sc-for list="{{ q.carriers }}" as="c" hint-placeholder-count="4">
+                        <option value="{{ c }}">{{ c }}</option>
+                      </sc-for>
+                    </select>
+                  </td>
+                  <td style="padding:12px"><input value="{{ q.tracking }}" onChange="{{ q.onTracking }}" placeholder="Numéro" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:12px;padding:8px 10px;width:150px"></td>
+                  <td style="padding:12px"><span style="{{ q.tagStyle }}">{{ q.status }}</span></td>
+                  <td style="padding:12px">
+                    <sc-if value="{{ q.canAdvance }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ q.advance }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 12px;cursor:pointer;whiteSpace:nowrap">Marquer {{ q.nextLabel }}</button>
+                    </sc-if>
+                  </td>
+                </tr>
+              </sc-for>
+              <sc-if value="{{ noShipQueue }}" hint-placeholder-val="{{ false }}">
+                <tr><td colspan="7" style="padding:16px 12px;color:rgba(245,243,239,0.55)">Aucune expédition en attente — tout est livré.</td></tr>
+              </sc-if>
+            </tbody>
+          </table>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ adminNewTab }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(300px,1fr));gap:34px;alignItems:start;marginBottom:34px">
+          <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(180px,1fr));gap:16px">
+            <label style="display:flex;flexDirection:column;gap:6px;gridColumn:1/-1"><span style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Nom de la pièce</span>
+              <input value="{{ np.name }}" onChange="{{ npName }}" placeholder="Hoodie Élévation" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:14px;padding:11px 12px"></label>
+            <label style="display:flex;flexDirection:column;gap:6px"><span style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Collection</span>
+              <select value="{{ np.collection }}" onChange="{{ npCollection }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:14px;padding:11px 12px">
+                <sc-for list="{{ collectionOptions }}" as="c" hint-placeholder-count="5">
+                  <option value="{{ c }}">{{ c }}</option>
+                </sc-for>
+              </select></label>
+            <label style="display:flex;flexDirection:column;gap:6px"><span style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Prix (FCFA)</span>
+              <input value="{{ np.price }}" onChange="{{ npPrice }}" placeholder="9839" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:14px;padding:11px 12px"></label>
+            <label style="display:flex;flexDirection:column;gap:6px"><span style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Tailles</span>
+              <input value="{{ np.sizes }}" onChange="{{ npSizes }}" placeholder="S,M,L,XL" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:14px;padding:11px 12px"></label>
+            <label style="display:flex;flexDirection:column;gap:6px"><span style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Stock par taille</span>
+              <input value="{{ np.stock }}" onChange="{{ npStock }}" placeholder="10" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:14px;padding:11px 12px"></label>
+            <label style="display:flex;flexDirection:column;gap:6px;gridColumn:1/-1"><span style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Coloris (séparés par des virgules)</span>
+              <input value="{{ np.colors }}" onChange="{{ npColors }}" placeholder="Noir, Blanc, Bleu" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:14px;padding:11px 12px"></label>
+            <label style="display:flex;flexDirection:column;gap:6px;gridColumn:1/-1"><span style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227">Description</span>
+              <textarea value="{{ np.description }}" onChange="{{ npDesc }}" rows="4" placeholder="Matière, coupe, impression, finitions" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:14px;padding:11px 12px;resize:vertical"></textarea></label>
+            <button onClick="{{ addProduct }}" style="gridColumn:1/-1;background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:15px 20px;cursor:pointer;justifySelf:start">Publier la fiche</button>
+          </div>
+          <div>
+            <div style="fontSize:11px;letterSpacing:0.12em;textTransform:uppercase;color:#c9a227;marginBottom:8px">Visuel repris de</div>
+            <select value="{{ np.visuel }}" onChange="{{ npVisuel }}" style="background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:14px;padding:11px 12px;width:100%;marginBottom:14px">
+              <sc-for list="{{ visuelOptions }}" as="v" hint-placeholder-count="6">
+                <option value="{{ v.value }}">{{ v.label }}</option>
+              </sc-for>
+            </select>
+            <div style="position:relative;aspectRatio:3 / 4;maxWidth:280px;border:1px solid rgba(245,243,239,0.18);overflow:hidden">
+              <div style="{{ npPreview }}"></div>
+            </div>
+            <p style="fontSize:12px;color:rgba(245,243,239,0.55);maxWidth:38ch;marginTop:12px">Le visuel définitif se remplace en déposant les photos du shooting dans le dossier produits.</p>
+          </div>
+        </div>
+        <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 16px"></div>
+        <div style="display:flex;justifyContent:space-between;alignItems:baseline;gap:16px;flexWrap:wrap;marginBottom:14px">
+          <h3 style="fontWeight:800;fontSize:20px;margin:0">Toutes les fiches</h3>
+          <div style="fontSize:12px;color:rgba(245,243,239,0.55)">{{ catalogueCount }} · les champs se modifient directement dans le tableau</div>
+        </div>
+        <div style="overflowX:auto">
+          <table style="width:100%;borderCollapse:collapse;fontSize:13px;minWidth:1180px">
+            <thead><tr style="borderBottom:2px solid rgba(245,243,239,0.3)">
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Référence</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Produit</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Collection</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Prix FCFA</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Coloris</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Stock par taille</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Total</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Vendus</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">État</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Actions</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ catalogueRows }}" as="p" hint-placeholder-count="6">
+                <tr style="borderBottom:1px solid rgba(245,243,239,0.14);verticalAlign:top">
+                  <td style="padding:12px;color:rgba(245,243,239,0.6);whiteSpace:nowrap">{{ p.sku }}</td>
+                  <td style="padding:8px"><input value="{{ p.name }}" onChange="{{ p.onName }}" style="background:#141312;border:1px solid rgba(245,243,239,0.2);color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:13px;padding:8px 10px;width:190px"></td>
+                  <td style="padding:8px">
+                    <select value="{{ p.collection }}" onChange="{{ p.onCollection }}" style="background:#141312;border:1px solid rgba(245,243,239,0.2);color:#f5f3ef;fontFamily:Archivo;fontSize:12px;padding:8px 10px;width:150px">
+                      <sc-for list="{{ collectionOptions }}" as="c" hint-placeholder-count="4">
+                        <option value="{{ c }}">{{ c }}</option>
+                      </sc-for>
+                    </select>
+                  </td>
+                  <td style="padding:8px"><input value="{{ p.price }}" onChange="{{ p.onPrice }}" style="background:#141312;border:1px solid rgba(245,243,239,0.2);color:#f5f3ef;fontFamily:Archivo;fontSize:13px;padding:8px 10px;width:90px"></td>
+                  <td style="padding:8px"><input value="{{ p.colorsLabel }}" onChange="{{ p.onColors }}" style="background:#141312;border:1px solid rgba(245,243,239,0.2);color:#f5f3ef;fontFamily:Archivo;fontSize:12px;padding:8px 10px;width:150px"></td>
+                  <td style="padding:8px">
+                    <span style="display:flex;gap:10px;flexWrap:wrap">
+                      <sc-for list="{{ p.sizes }}" as="s" hint-placeholder-count="4">
+                        <span style="display:flex;gap:4px;alignItems:center;fontSize:12px">
+                          <span style="fontWeight:800;color:#c9a227">{{ s.size }}</span>
+                          <button onClick="{{ s.dec }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:0 6px;cursor:pointer">−</button>
+                          <input value="{{ s.qty }}" onChange="{{ s.onSet }}" style="width:42px;textAlign:center;background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:12px;padding:4px 2px">
+                          <button onClick="{{ s.inc }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:0 6px;cursor:pointer">+</button>
+                        </span>
+                      </sc-for>
+                    </span>
+                  </td>
+                  <td style="{{ p.stockStyle }}">{{ p.stock }}</td>
+                  <td style="padding:12px;color:rgba(245,243,239,0.7)">{{ p.sold }}</td>
+                  <td style="padding:12px"><span style="{{ p.tagStyle }}">{{ p.stateLabel }}</span></td>
+                  <td style="padding:8px">
+                    <span style="display:flex;gap:6px;flexWrap:wrap">
+                      <sc-if value="{{ p.idle }}" hint-placeholder-val="{{ true }}">
+                        <button onClick="{{ p.toggle }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 10px;cursor:pointer;whiteSpace:nowrap">{{ p.toggleLabel }}</button>
+                        <button onClick="{{ p.duplicate }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 10px;cursor:pointer;whiteSpace:nowrap">Dupliquer</button>
+                        <button onClick="{{ p.askDelete }}" style="background:none;border:1px solid rgba(224,103,76,0.6);color:#e0674c;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 10px;cursor:pointer;whiteSpace:nowrap">Supprimer</button>
+                      </sc-if>
+                      <sc-if value="{{ p.pending }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ p.confirmDelete }}" style="background:#e0674c;border:0;color:#0b0b0b;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 10px;cursor:pointer;whiteSpace:nowrap">Confirmer</button>
+                        <button onClick="{{ p.cancelDelete }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 10px;cursor:pointer;whiteSpace:nowrap">Annuler</button>
+                      </sc-if>
+                    </span>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ adminStock }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:10px;alignItems:center;marginBottom:18px">
+          <button onClick="{{ toggleLow }}" style="{{ lowToggleStyle }}">{{ lowToggleLabel }}</button>
+        </div>
+        <div style="overflowX:auto">
+          <table style="width:100%;borderCollapse:collapse;fontSize:13px">
+            <thead><tr style="borderBottom:2px solid rgba(245,243,239,0.3)">
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Produit</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Collection</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Prix</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Stock</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Par taille</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Actions</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ adminProducts }}" as="p" hint-placeholder-count="6">
+                <tr style="borderBottom:1px solid rgba(245,243,239,0.14)">
+                  <td style="padding:12px;fontWeight:800">{{ p.name }}</td>
+                  <td style="padding:12px;color:rgba(245,243,239,0.7)">{{ p.collection }}</td>
+                  <td style="padding:12px">{{ p.priceLabel }}</td>
+                  <td style="padding:12px"><span style="{{ p.tagStyle }}">{{ p.stock }}</span></td>
+                  <td style="padding:12px">
+                    <span style="display:flex;gap:12px;flexWrap:wrap">
+                      <sc-for list="{{ p.sizes }}" as="s" hint-placeholder-count="4">
+                        <span style="display:flex;gap:4px;alignItems:center;fontSize:12px">
+                          <span style="fontWeight:800;color:#c9a227">{{ s.size }}</span>
+                          <button onClick="{{ s.dec }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:0 6px;cursor:pointer">−</button>
+                          <input value="{{ s.qty }}" onChange="{{ s.onSet }}" style="width:44px;textAlign:center;background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:12px;padding:4px 2px">
+                          <button onClick="{{ s.inc }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;padding:0 6px;cursor:pointer">+</button>
+                        </span>
+                      </sc-for>
+                    </span>
+                  </td>
+                  <td style="padding:12px"><button onClick="{{ p.restock }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.35);fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.08em;textTransform:uppercase;padding:8px 12px;cursor:pointer;whiteSpace:nowrap">+10 / taille</button></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <h3 style="fontWeight:800;fontSize:20px;margin:38px 0 0">Mouvements de stock</h3>
+        <div style="height:2px;background:rgba(245,243,239,0.18);margin:14px 0 0"></div>
+        <div style="overflowX:auto">
+          <table style="width:100%;borderCollapse:collapse;fontSize:13px">
+            <thead><tr style="borderBottom:1px solid rgba(245,243,239,0.2)">
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Horodatage</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Produit</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Taille</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Variation</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Motif</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ stockLog }}" as="m" hint-placeholder-count="3">
+                <tr style="borderBottom:1px solid rgba(245,243,239,0.1)">
+                  <td style="padding:10px 12px;color:rgba(245,243,239,0.6)">{{ m.date }}</td>
+                  <td style="padding:10px 12px">{{ m.product }}</td>
+                  <td style="padding:10px 12px">{{ m.size }}</td>
+                  <td style="{{ m.style }}">{{ m.delta }}</td>
+                  <td style="padding:10px 12px;color:rgba(245,243,239,0.7)">{{ m.reason }}</td>
+                </tr>
+              </sc-for>
+              <sc-if value="{{ noStockLog }}" hint-placeholder-val="{{ false }}">
+                <tr><td colspan="5" style="padding:16px 12px;color:rgba(245,243,239,0.55)">Aucun mouvement enregistré depuis l'ouverture du back-office.</td></tr>
+              </sc-if>
+            </tbody>
+          </table>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ adminOrdersTab }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:8px;flexWrap:wrap;alignItems:center;marginBottom:18px">
+          <sc-for list="{{ adminFilters }}" as="f" hint-placeholder-count="6">
+            <button onClick="{{ f.select }}" style="{{ f.style }}">{{ f.label }}</button>
+          </sc-for>
+          <input value="{{ adminQuery }}" onChange="{{ onAdminQuery }}" placeholder="Référence, client, e-mail" style="marginLeft:auto;background:#141312;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:13px;padding:10px 12px;width:250px">
+        </div>
+        <div style="fontSize:12px;color:rgba(245,243,239,0.55);marginBottom:14px">{{ adminOrdersCount }}</div>
+
+        <sc-if value="{{ hasInspected }}" hint-placeholder-val="{{ false }}">
+          <div style="border:1px solid rgba(201,162,39,0.45);background:#141312;padding:22px;marginBottom:26px;display:grid;gridTemplateColumns:repeat(auto-fit,minmax(280px,1fr));gap:28px">
+            <div>
+              <div style="display:flex;justifyContent:space-between;alignItems:baseline;gap:12px;flexWrap:wrap">
+                <span style="fontWeight:800;fontSize:20px;color:#c9a227">{{ inspected.ref }}</span>
+                <span style="{{ inspected.tagStyle }}">{{ inspected.status }}</span>
+              </div>
+              <div style="fontSize:13px;color:rgba(245,243,239,0.7);marginTop:6px">{{ inspected.client }} · {{ inspected.email }} · {{ inspected.date }}</div>
+              <div style="display:flex;flexDirection:column;marginTop:18px;borderTop:1px solid rgba(245,243,239,0.16)">
+                <sc-for list="{{ inspected.items }}" as="i" hint-placeholder-count="2">
+                  <div style="display:flex;justifyContent:space-between;gap:12px;padding:11px 0;borderBottom:1px solid rgba(245,243,239,0.12);fontSize:13px">
+                    <span>{{ i.qty }} × {{ i.name }} <span style="color:rgba(245,243,239,0.55)">— {{ i.variantLabel }}</span></span>
+                    <span style="whiteSpace:nowrap">{{ i.totalLabel }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:flex;justifyContent:space-between;fontSize:13px;marginTop:12px;color:rgba(245,243,239,0.7)"><span>Sous-total</span><span>{{ inspected.subtotalLabel }}</span></div>
+              <div style="display:flex;justifyContent:space-between;fontWeight:800;fontSize:19px;marginTop:10px;paddingTop:10px;borderTop:1px solid rgba(245,243,239,0.2)"><span>Total</span><span style="color:#c9a227">{{ inspected.totalLabel }}</span></div>
+            </div>
+            <div style="display:flex;flexDirection:column;gap:18px">
+              <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(140px,1fr));gap:16px;fontSize:13px">
+                <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227;marginBottom:4px">Adresse</div>{{ inspected.adresse }}</div>
+                <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227;marginBottom:4px">Paiement</div>{{ inspected.payment }}</div>
+                <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227;marginBottom:4px">Transporteur</div>{{ inspected.carrier }}</div>
+                <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227;marginBottom:4px">Suivi</div>{{ inspected.tracking }}</div>
+              </div>
+              <div>
+                <div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227;marginBottom:8px">Acheminement</div>
+                <div style="display:flex;gap:6px;flexWrap:wrap">
+                  <sc-for list="{{ inspected.timeline }}" as="t" hint-placeholder-count="4">
+                    <span style="{{ t.style }}">{{ t.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <div>
+                <div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227;marginBottom:8px">Changer le statut</div>
+                <div style="display:flex;gap:6px;flexWrap:wrap">
+                  <sc-for list="{{ inspected.actions }}" as="a" hint-placeholder-count="4">
+                    <button onClick="{{ a.apply }}" style="{{ a.style }}">{{ a.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;flexWrap:wrap;marginTop:4px">
+                <sc-if value="{{ inspected.canRefund }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ inspected.refund }}" style="background:#e0674c;border:0;color:#0b0b0b;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:9px 14px;cursor:pointer">Rembourser {{ inspected.totalLabel }}</button>
+                </sc-if>
+                <sc-if value="{{ inspected.refunded }}" hint-placeholder-val="{{ false }}">
+                  <span style="fontSize:12px;color:#e0674c;fontWeight:800;alignSelf:center">Remboursé{{ inspected.refundLabel }} · articles réintégrés au stock</span>
+                </sc-if>
+                <sc-if value="{{ inspected.canCancel }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ inspected.cancel }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:9px 14px;cursor:pointer">Annuler la commande</button>
+                </sc-if>
+                <button onClick="{{ inspected.close }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:rgba(245,243,239,0.7);fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:9px 14px;cursor:pointer">Fermer</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="overflowX:auto">
+          <table style="width:100%;borderCollapse:collapse;fontSize:13px">
+            <thead><tr style="borderBottom:2px solid rgba(245,243,239,0.3)">
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Référence</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Client</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Date</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Articles</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Total</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Statut</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Action</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ adminOrders }}" as="o" hint-placeholder-count="5">
+                <tr style="{{ o.rowStyle }}">
+                  <td style="padding:12px;fontWeight:800"><button onClick="{{ o.inspect }}" style="background:none;border:0;color:#c9a227;fontFamily:Archivo;fontWeight:800;fontSize:13px;padding:0;cursor:pointer;textDecoration:underline">{{ o.ref }}</button></td>
+                  <td style="padding:12px">{{ o.client }}</td>
+                  <td style="padding:12px;color:rgba(245,243,239,0.7)">{{ o.date }}</td>
+                  <td style="padding:12px">{{ o.itemsLabel }}</td>
+                  <td style="padding:12px">{{ o.totalLabel }}</td>
+                  <td style="padding:12px"><span style="{{ o.tagStyle }}">{{ o.status }}</span></td>
+                  <td style="padding:12px">
+                    <span style="display:flex;gap:6px;flexWrap:wrap">
+                      <sc-if value="{{ o.canAdvance }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ o.advance }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 12px;cursor:pointer;whiteSpace:nowrap">{{ o.nextLabel }}</button>
+                      </sc-if>
+                      <button onClick="{{ o.inspect }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 12px;cursor:pointer">Détail</button>
+                      <sc-if value="{{ o.canCancel }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ o.cancel }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 12px;cursor:pointer">Annuler</button>
+                      </sc-if>
+                    </span>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ adminReviewsTab }}" hint-placeholder-val="{{ false }}">
+        <div style="overflowX:auto">
+          <table style="width:100%;borderCollapse:collapse;fontSize:13px">
+            <thead><tr style="borderBottom:2px solid rgba(245,243,239,0.3)">
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Produit</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Auteur</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Note</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Avis</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">État</th>
+              <th style="textAlign:left;padding:10px 12px;color:#c9a227;fontSize:11px;letterSpacing:0.1em;textTransform:uppercase">Modération</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ adminReviews }}" as="r" hint-placeholder-count="4">
+                <tr style="borderBottom:1px solid rgba(245,243,239,0.14)">
+                  <td style="padding:12px">{{ r.productName }}</td>
+                  <td style="padding:12px">{{ r.author }}</td>
+                  <td style="padding:12px;color:#c9a227">{{ r.stars }}</td>
+                  <td style="padding:12px;maxWidth:320px;color:rgba(245,243,239,0.8)">{{ r.text }}</td>
+                  <td style="padding:12px"><span style="{{ r.tagStyle }}">{{ r.status }}</span></td>
+                  <td style="padding:12px">
+                    <span style="display:flex;gap:6px">
+                      <button onClick="{{ r.publish }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 12px;cursor:pointer">Publier</button>
+                      <button onClick="{{ r.reject }}" style="background:none;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 12px;cursor:pointer">Masquer</button>
+                    </span>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ adminReturnsTab }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(340px,1fr));gap:22px">
+          <sc-for list="{{ adminReturns }}" as="r" hint-placeholder-count="2">
+            <div style="border:1px solid rgba(245,243,239,0.18);background:#141312;padding:20px">
+              <div style="display:flex;justifyContent:space-between;gap:12px;flexWrap:wrap;alignItems:baseline">
+                <span style="fontWeight:800;fontSize:17px;color:#c9a227">{{ r.ref }}</span>
+                <span style="{{ r.tagStyle }}">{{ r.status }}</span>
+              </div>
+              <div style="fontSize:13px;color:rgba(245,243,239,0.7);marginTop:6px">{{ r.client }} · demandé le {{ r.date }} · dossier {{ r.closedLabel }}</div>
+              <div style="height:1px;background:rgba(245,243,239,0.16);margin:16px 0"></div>
+              <div style="display:grid;gridTemplateColumns:repeat(auto-fit,minmax(130px,1fr));gap:14px;fontSize:13px">
+                <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227;marginBottom:4px">Motif</div>{{ r.reason }}</div>
+                <div><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227;marginBottom:4px">Montant en jeu</div>{{ r.refundLabel }}</div>
+              </div>
+              <div style="fontSize:13px;marginTop:14px"><div style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227;marginBottom:4px">Articles concernés</div>{{ r.itemsLabel }}</div>
+              <label style="display:flex;flexDirection:column;gap:6px;marginTop:16px"><span style="fontSize:11px;letterSpacing:0.1em;textTransform:uppercase;color:#c9a227">Note interne</span>
+                <textarea value="{{ r.note }}" onChange="{{ r.onNote }}" rows="2" placeholder="Constat, échange avec le client, décision" style="background:#0b0b0b;border:1px solid rgba(245,243,239,0.25);color:#f5f3ef;fontFamily:Archivo;fontSize:13px;padding:10px;resize:vertical"></textarea></label>
+              <sc-if value="{{ r.open }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;gap:6px;flexWrap:wrap;marginTop:16px;alignItems:center">
+                  <sc-if value="{{ r.canAdvance }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ r.advance }}" style="background:none;border:1px solid rgba(201,162,39,0.6);color:#c9a227;fontFamily:Archivo;fontWeight:800;fontSize:11px;letterSpacing:0.06em;textTransform:uppercase;padding:8px 12px;cursor:pointer;whiteSpace:nowrap">{{ r.nextLabel }}</button>
+                  </sc-if>
+                  <sc-for list="{{ r.resolutions }}" as="x" hint-placeholder-count="3">
+                    <button onClick="{{ x.apply }}" style="{{ x.style }}">{{ x.label }}</button>
+                  </sc-for>
+                </div>
+                <p style="fontSize:12px;color:rgba(245,243,239,0.5);marginTop:12px;marginBottom:0">Un remboursement ou un échange réintègre automatiquement les articles au stock.</p>
+              </sc-if>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noAdminReturns }}" hint-placeholder-val="{{ false }}">
+            <p style="color:rgba(245,243,239,0.55)">Aucun litige ouvert. Les demandes de retour clients arrivent ici avec le montant en jeu et les articles concernés.</p>
+          </sc-if>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  </main>
+
+  <footer style="borderTop:2px solid rgba(245,243,239,0.18);padding:clamp(28px,4vw,52px) clamp(20px,4vw,48px);display:grid;gridTemplateColumns:repeat(auto-fit,minmax(200px,1fr));gap:34px">
+    <div>
+      <img src="assets/sulvo-mark.png" alt="SULVO" style="height:54px;width:auto;filter:invert(1);mixBlendMode:screen">
+      <p style="fontSize:13px;marginTop:14px;maxWidth:28ch;color:rgba(245,243,239,0.7)">Porte ton histoire. Porte tes valeurs. WEAR YOUR PURPOSE.</p>
+    </div>
+    <div>
+      <div style="fontSize:11px;letterSpacing:0.16em;textTransform:uppercase;marginBottom:12px;color:#c9a227">Boutique</div>
+      <div style="display:flex;flexDirection:column;gap:8px;alignItems:flex-start">
+        <button onClick="{{ goCatalogue }}" style="background:none;border:0;color:#f5f3ef;padding:0;fontSize:13px;cursor:pointer">Collections</button>
+        <button onClick="{{ goPanier }}" style="background:none;border:0;color:#f5f3ef;padding:0;fontSize:13px;cursor:pointer">Panier</button>
+        <button onClick="{{ goCompte }}" style="background:none;border:0;color:#f5f3ef;padding:0;fontSize:13px;cursor:pointer">Mon compte</button>
+      </div>
+    </div>
+    <div>
+      <div style="fontSize:11px;letterSpacing:0.16em;textTransform:uppercase;marginBottom:12px;color:#c9a227">Aide</div>
+      <div style="fontSize:13px;display:flex;flexDirection:column;gap:8px;color:rgba(245,243,239,0.7)">
+        <span>Livraison mondiale</span><span>Retours sous 14 jours</span><span>Commande validée sur WhatsApp</span>
+      </div>
+    </div>
+    <div>
+      <div style="fontSize:11px;letterSpacing:0.16em;textTransform:uppercase;marginBottom:12px;color:#c9a227">Commander</div>
+      <div style="fontSize:13px;display:flex;flexDirection:column;gap:8px;color:rgba(245,243,239,0.7)">
+        <span>Commande envoyée sur WhatsApp</span><a href="https://wa.me/33749581620" target="_blank" rel="noopener" style="color:#c9a227">Sultan · +33 7 49 58 16 20</a><span>Livraison et règlement convenus ensemble</span>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:22px;bottom:22px;zIndex:60;background:#c9a227;color:#0b0b0b;padding:14px 18px;fontSize:13px;fontWeight:800;maxWidth:340px;animation:sulvo-rise 200ms ease-out">{{ toast }}</div>
+  </sc-if>
+</div>
+
+
+  <!-- CHOIX APRÈS AJOUT AU PANIER -->
+  <sc-if value="{{ justAdded }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(11,11,11,0.82);display:flex;alignItems:center;justifyContent:center;padding:20px;zIndex:80">
+      <div style="background:#141312;border:1px solid rgba(201,162,39,0.5);padding:clamp(22px,3vw,34px);width:100%;maxWidth:440px">
+        <span style="fontSize:11px;letterSpacing:0.26em;textTransform:uppercase;color:#c9a227">Ajouté au panier</span>
+        <div style="fontWeight:800;fontSize:18px;margin:12px 0 18px;textWrap:pretty">{{ justAddedLabel }}</div>
+        <div style="height:2px;background:rgba(245,243,239,0.18);margin:0 0 20px"></div>
+        <div style="display:flex;flexDirection:column;gap:12px">
+          <button onClick="{{ finishFromCart }}" style="background:#c9a227;color:#0b0b0b;border:0;fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 20px;cursor:pointer;textAlign:left">Finaliser ma commande</button>
+          <button onClick="{{ closeAdded }}" style="background:transparent;color:#f5f3ef;border:1px solid rgba(245,243,239,0.4);fontFamily:Archivo;fontWeight:800;fontSize:13px;letterSpacing:0.1em;textTransform:uppercase;padding:16px 20px;cursor:pointer;textAlign:left">Retour à la boutique</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0b0b0b"></rect><text x="50" y="50" fill="#c9a227" font-family="Archivo, sans-serif" font-size="22" font-weight="800" letter-spacing="3" text-anchor="middle" dominant-baseline="central">SULVO</text></svg></template>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;devise&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;XOF (FCFA)&quot;, &quot;EUR (€)&quot;, &quot;USD ($)&quot;], &quot;default&quot;: &quot;EUR (€)&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Boutique&quot; },
+  &quot;numeroWhatsApp&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;33749581620&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Boutique&quot; },
+  &quot;boutiqueOuverte&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Boutique&quot; }
+}">
+const GOLD = "#c9a227";
+const INK = "#f5f3ef";
+
+const FX = {
+  "XOF (FCFA)": { r: 1, fmt: (n) => Math.round(n).toLocaleString("fr-FR") + " FCFA" },
+  "EUR (€)": { r: 1 / 655.957, fmt: (n) => n.toFixed(2).replace(".", ",") + " €" },
+  "USD ($)": { r: 1 / 600, fmt: (n) => "$" + n.toFixed(2) }
+};
+
+const HEX = { "Blanc": "#f2f0ec", "Noir": "#141312", "Jaune": "#f2a50a", "Vert": "#12402c", "Bleu": "#1330c4", "Turquoise": "#1f8f8f", "Ivoire": "#efe6d6", "Champagne": "#d8c6a5" };
+
+const IMGS = {
+  1: ["hoodie-patience", "hoodie-patience-b", "hoodie-patience-c", "hoodie-patience-d"],
+  2: ["hoodie-inna", "hoodie-inna-b", "hoodie-inna-c", "hoodie-inna-d"],
+  3: ["hoodie-faith", "hoodie-faith-b", "hoodie-faith-c", "hoodie-faith-d"],
+  4: ["hoodie-sunset", "hoodie-sunset-b", "hoodie-sunset-c", "hoodie-sunset-d"],
+  5: ["hoodie-1vs1", "hoodie-1vs1-b", "hoodie-1vs1-c", "hoodie-1vs1-d"],
+  6: ["hoodie-senegal", "hoodie-senegal-b"],
+  7: ["tee-patience", "tee-patience-b", "tee-patience-c", "campagne-c"],
+  8: ["tee-inna", "tee-inna-b", "tee-inna-c", "tee-inna-d"],
+  9: ["tee-faith", "tee-faith-b", "tee-faith-c"],
+  10: ["tee-meant"], 11: ["tee-trust"],
+  12: ["tee-senegal", "tee-senegal-b", "tee-senegal-c"],
+  13: ["tee-goku", "tee-goku-b", "tee-goku-c"],
+  14: ["tee-eyes", "tee-eyes-b"],
+  15: ["tee-itachi", "tee-itachi-b"],
+  16: ["doudoune-luffy", "doudoune-luffy-b", "doudoune-luffy-c"],
+  17: ["doudoune-itachi", "doudoune-itachi-b", "doudoune-itachi-c"],
+  18: ["tee-logo", "tee-logo-b", "tee-logo-c"],
+  19: ["tee-clothing", "tee-clothing-b"],
+  20: ["tee-sunset"], 21: ["tee-usa"], 22: ["tee-formes"], 23: ["tee-plaque"],
+  24: ["chemise", "chemise-b", "chemise-c"],
+  25: ["pantalon", "chemise", "chemise-b"],
+  26: ["blazer", "blazer-b", "blazer-c"],
+  27: ["robe", "robe-b", "robe-c"],
+  28: ["robe-blazer", "woman-campagne"]
+};
+const PNG = { 24: 1, 25: 1, 26: 1, 27: 1, 28: 1 };
+const IMG = (id, i) => "assets/produits/" + ((IMGS[id] || IMGS[1])[i || 0] || IMGS[id][0]) + (PNG[id] ? ".png" : ".jpeg");
+const FIT = { 12: "contain", 13: "contain", 15: "contain", 17: "contain", 18: "contain", 25: "contain", 26: "cover" };
+const POS = { 24: "center 22%", 26: "center 18%", 27: "center 12%", 28: "center 20%" };
+const IMGBOX = (id, i, fit) => ({
+  position: "absolute", inset: 0, backgroundColor: "#171615",
+  backgroundImage: "url(" + IMG(id, i) + ")",
+  backgroundSize: fit || FIT[id] || "cover",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: POS[id] || "center"
+});
+
+const COLLECTIONS = [
+  { name: "Manifeste", line: "Patience · Faith · Inna" },
+  { name: "Manga", line: "Purpose · Eyes · Shinobi" },
+  { name: "Héritage", line: "Dakar · Sénégal" },
+  { name: "Signature", line: "Monogramme SV" },
+  { name: "Sulvo Woman", line: "Élévation · Grace. Power. Purpose." }
+];
+
+const STREET = ["S", "M", "L", "XL"];
+const WOMAN = ["XS", "S", "M", "L", "XL"];
+
+const P = (id, name, collection, price, sizes, stock, colors, description) => ({
+  id, name, collection, price, sizes, colors, description,
+  stock: sizes.reduce((a, s, i) => (a[s] = stock[i], a), {}),
+  sku: "SLV-" + String(id).padStart(3, "0")
+});
+
+const PRODUCTS = [
+  P(1, "Hoodie Patience", "Manifeste", 26238, STREET, [6, 12, 9, 3], ["Noir", "Blanc", "Bleu"], "« Ce qui doit arriver trouvera son chemin. » Molleton lourd, typographie condensée pleine poitrine, signature Sulvo au bas du vêtement."),
+  P(2, "Hoodie Inna Ma'al Usri Yusra'", "Manifeste", 26238, STREET, [5, 11, 9, 4], ["Noir", "Blanc", "Bleu"], "Quatre lignes pleine poitrine, impression or sur noir. Capuche doublée, cordons plats, signature Sulvo sous la poche."),
+  P(3, "Hoodie Faith", "Manifeste", 26238, STREET, [4, 10, 8, 3], ["Noir", "Blanc", "Bleu"], "« Même lorsque tu ne vois pas le chemin, continue d'avancer. » Molleton gratté, poche kangourou."),
+  P(4, "Hoodie Sunset", "Manifeste", 26238, STREET, [4, 8, 6, 2], ["Noir", "Blanc", "Bleu"], "Logo SULVO découpé dans un coucher de soleil, triangles fil doré, monogramme couronné à l'épaule. Impression pleine face au dos."),
+  P(5, "Hoodie 1 vs 1", "Manifeste", 26238, STREET, [3, 9, 7, 3], ["Noir", "Blanc", "Bleu"], "« 1 vs 1, bat toi. 1 vs 2, défends toi. 1 vs 3, fuis. » Trois lignes séparées par des filets, signature manuscrite."),
+  P(6, "Hoodie Héritage", "Héritage", 26238, STREET, [4, 8, 6, 2], ["Blanc"], "Fresque Héritage au dos : la Maison des Esclaves, la pirogue, le drapeau, le baobab et le monogramme SV. Monogramme doré sur la poitrine."),
+  P(7, "T-shirt Patience", "Manifeste", 9839, STREET, [10, 18, 14, 6], ["Noir", "Bleu", "Vert"], "« Ce qui doit arriver trouvera son chemin. » Coton peigné 220 g, coupe droite."),
+  P(8, "T-shirt Inna Ma'al Usri Yusra'", "Manifeste", 9839, STREET, [14, 20, 16, 7], ["Blanc", "Bleu", "Noir", "Jaune"], "Typographie pleine poitrine, signature Sulvo au bas du vêtement. Décliné en quatre coloris."),
+  P(9, "T-shirt Faith", "Manifeste", 9839, STREET, [9, 15, 12, 5], ["Bleu", "Jaune", "Noir"], "« Même lorsque tu ne vois pas le chemin, continue d'avancer. » Impression haute densité."),
+  P(10, "T-shirt What Is Meant For You", "Manifeste", 9839, STREET, [8, 14, 11, 4], ["Jaune"], "What is meant for you will find you. Impression noire sur jaune safran, cinq lignes pleine poitrine."),
+  P(11, "T-shirt Trust The Process", "Manifeste", 9839, STREET, [7, 12, 10, 4], ["Bleu"], "Trust the process. Typographie blanche sur bleu roi, signature Sulvo au bas du vêtement."),
+  P(12, "T-shirt Héritage", "Héritage", 9839, STREET, [12, 22, 17, 6], ["Blanc"], "Fresque Héritage au dos, monogramme couronné sur la poitrine. Coton lourd, coupe oversize."),
+  P(13, "T-shirt Purpose", "Manga", 9839, STREET, [10, 18, 12, 5], ["Noir"], "Wear your purpose. Discipline · Focus · Ambition. Soleil rouge et silhouette au dos, sceau 信念 sur la manche."),
+  P(14, "T-shirt Eyes", "Manga", 9839, STREET, [0, 9, 14, 3], ["Blanc"], "Quatre regards encrés à la main, colonne SULVO verticale, sceau sur la manche. Coupe oversize."),
+  P(15, "T-shirt Shinobi", "Manga", 9839, STREET, [6, 11, 8, 4], ["Blanc"], "Portrait shinobi encadré au dos, colonnes SULVO et サルヴォ, sceau rouge 信念."),
+  P(16, "Doudoune Luffy", "Manga", 39357, STREET, [2, 4, 3, 1], ["Blanc"], "Édition capsule numérotée. Monogramme couronné sur la capuche, fresque Monkey D. Luffy au dos, kanji sur les manches."),
+  P(17, "Doudoune Shinobi", "Manga", 39357, STREET, [2, 4, 3, 1], ["Blanc"], "Branches de cerisier sur le devant, portrait shinobi au dos, sceaux 信念 et 精神. Doublure matelassée."),
+  P(18, "T-shirt Monogramme", "Signature", 9839, STREET, [12, 20, 15, 6], ["Noir", "Blanc"], "Monogramme couronné S et lettrage SULVO サルヴォ sur la poitrine, sceau rouge sur la manche."),
+  P(19, "T-shirt Sulvo Clothing", "Signature", 9839, STREET, [9, 14, 11, 5], ["Noir", "Bleu"], "Écusson circulaire Sulvo Clothing, monogramme couronné au centre. Sérigraphie trois couleurs."),
+  P(20, "T-shirt Sunset", "Signature", 9839, STREET, [7, 12, 9, 4], ["Bleu"], "Lettrage SULVO découpé dans un coucher de soleil, triangles fil doré, monogramme couronné."),
+  P(21, "T-shirt Sulvo USA", "Signature", 9839, STREET, [6, 11, 8, 3], ["Bleu"], "Cartouche SULVO USA encadré, drapeau américain sérigraphié."),
+  P(22, "T-shirt Formes", "Signature", 9839, STREET, [8, 13, 10, 4], ["Blanc"], "Lettrage arrondi SULVO et quatre formes géométriques primaires."),
+  P(23, "T-shirt Plaque 221", "Signature", 9839, STREET, [5, 10, 8, 3], ["Turquoise"], "Plaque d'immatriculation sénégalaise AA-221-AZ et monogramme couronné SV."),
+  P(24, "Chemise satinée", "Sulvo Woman", 29518, WOMAN, [4, 8, 10, 6, 3], ["Ivoire", "Champagne", "Noir"], "Tissu satiné premium doux et luxueux, boutons gravés SULVO, broderie monogramme sur la poitrine. Intemporelle, polyvalente, raffinée."),
+  P(25, "Pantalon taille haute", "Sulvo Woman", 26238, WOMAN, [3, 7, 9, 5, 2], ["Ivoire", "Champagne", "Noir"], "Taille structurée pour le confort et le maintien, tombé fluide, poches arrière aux finitions soignées. Tissu fluide et résistant."),
+  P(26, "Blazer Signature", "Sulvo Woman", 59036, WOMAN, [2, 5, 6, 4, 2], ["Noir", "Ivoire"], "Coupe cintrée premium, détails dorés, allure intemporelle. Broderie SULVO, boutons gravés, poches à rabat, boutons de manche dorés."),
+  P(27, "Robe Élégance", "Sulvo Woman", 52477, WOMAN, [2, 4, 5, 3, 1], ["Noir"], "Fluidité, raffinement, confiance absolue. Coupe ajustée qui sublime la silhouette, plissé latéral signature, fermeture invisible finition luxe."),
+  P(28, "Robe Blazer Signature", "Sulvo Woman", 55756, WOMAN, [1, 3, 4, 3, 1], ["Noir"], "L'allure d'un blazer, la féminité d'une robe. Boutons dorés gravés SV, broderie premium. Pièce iconique pour vos soirées.")
+];
+
+const REVIEWS = [
+  { id: 1, productId: 12, author: "Amina D.", rating: 5, text: "L'impression au dos est nette et le coton est épais. Je porte du M et le tombé oversize est parfait.", date: "12/07/2026", status: "Publié" },
+  { id: 2, productId: 2, author: "Moussa S.", rating: 5, text: "Le hoodie le plus confortable que j'aie eu. L'or ne bouge pas après lavage.", date: "28/06/2026", status: "Publié" },
+  { id: 3, productId: 13, author: "Fatou N.", rating: 4, text: "Le noir est profond et le soleil rouge ressort très bien. Taille un peu grand.", date: "03/08/2026", status: "Publié" },
+  { id: 4, productId: 16, author: "Cheikh B.", rating: 5, text: "Doudoune très chaude, la fresque au dos est impressionnante en vrai. Livrée à Dakar en deux jours.", date: "15/08/2026", status: "Publié" },
+  { id: 5, productId: 6, author: "Aïssatou F.", rating: 5, text: "La fresque Héritage est magnifique de près, on distingue chaque détail. Beaucoup de compliments.", date: "19/08/2026", status: "En attente" },
+  { id: 6, productId: 1, author: "Awa T.", rating: 4, text: "Molleton généreux, la citation est imprimée proprement. Prendre une taille en dessous.", date: "21/08/2026", status: "Publié" }
+];
+
+const SHIPPING = [
+  { id: "france", label: "France", price: 0 },
+  { id: "senegal", label: "Sénégal", price: 0 },
+  { id: "monde", label: "International", price: 0 }
+];
+
+const WHATSAPP = "33749581620";
+const WA_NAME = "Sultan";
+
+const PAYMENTS = [
+  { id: "cb", label: "Carte bancaire", note: "Visa, Mastercard — 3-D Secure" },
+  { id: "paypal", label: "PayPal", note: "Redirection sécurisée" },
+  { id: "wallet", label: "Apple / Google Pay", note: "Paiement en un geste" },
+  { id: "om", label: "Orange Money", note: "Confirmation par SMS" },
+  { id: "cod", label: "Paiement à la livraison", note: "Espèces, Sénégal uniquement" },
+  { id: "virement", label: "Virement bancaire", note: "Expédition après réception" }
+];
+
+const HASH = (s) => {
+  let h = 5381;
+  const salted = "sulvo:" + s;
+  for (let i = 0; i < salted.length; i++) h = ((h << 5) + h + salted.charCodeAt(i)) >>> 0;
+  let g = 7;
+  for (let i = salted.length - 1; i >= 0; i--) g = ((g * 33) ^ salted.charCodeAt(i)) >>> 0;
+  return h.toString(36) + "-" + g.toString(36);
+};
+const EMAIL_RE = /^[a-z0-9]([a-z0-9._%+-]*[a-z0-9])?@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z]{2,})+$/i;
+const SEED_ACCOUNTS = [
+  { email: "admin@sulvo.sn", nom: "Direction SULVO", role: "admin", hash: HASH("Sulvo2026!"), created: "01/01/2026" },
+  { email: "client@sulvo.sn", nom: "Awa Ndiaye", role: "client", hash: HASH("Client2026!"), created: "14/03/2026" }
+];
+
+const STATUSES = ["En préparation", "Expédiée", "En transit", "Livrée"];
+const RETURN_STEPS = ["Demandé", "Accepté", "Colis reçu", "Remboursé"];
+const CARRIERS = ["À assigner", "SULVO Coursier (Dakar)", "La Poste Sénégal", "DHL Express", "UPS", "Chronopost"];
+const RESOLUTIONS = ["Remboursé", "Échangé", "Refusé"];
+
+const VALEURS = [
+  { title: "Authenticité", body: "Être soi, sans masque ni imitation." },
+  { title: "Respect", body: "Le respect ne se réclame pas. Il se construit, jour après jour." },
+  { title: "Persévérance", body: "Les plus grandes victoires naissent souvent après les plus grands doutes." },
+  { title: "Humilité", body: "Le bruit attire les regards. Le silence construit les légendes." },
+  { title: "Liberté", body: "Avoir le courage de choisir sa propre voie." }
+];
+
+const SEED_ORDERS = [
+  { ref: "SLV-2608-114", date: "14/08/2026", client: "Amina Diallo", email: "amina@exemple.com", items: [{ productId: 6, name: "Hoodie Héritage", size: "M", color: "Blanc", qty: 1, price: 26238 }], shipping: "Sénégal", shippingPrice: 0, payment: "À convenir sur WhatsApp", status: "Livrée", adresse: "12 rue Carnot, Dakar, Sénégal", tracking: "SN4471902288", retour: null },
+  { ref: "SLV-2608-127", date: "19/08/2026", client: "Moussa Sarr", email: "moussa@exemple.com", items: [{ productId: 8, name: "T-shirt Inna Ma'al Usri Yusra'", size: "L", color: "Noir", qty: 2, price: 9839 }, { productId: 7, name: "T-shirt Patience", size: "L", color: "Vert", qty: 1, price: 9839 }], shipping: "Sénégal", shippingPrice: 0, payment: "À convenir sur WhatsApp", status: "En transit", adresse: "Cité Keur Gorgui, Dakar, Sénégal", tracking: "SN4471908812", retour: null },
+  { ref: "SLV-2608-131", date: "22/08/2026", client: "Cheikh Ba", email: "cheikh@exemple.com", items: [{ productId: 16, name: "Doudoune Luffy", size: "XL", color: "Blanc", qty: 1, price: 39357 }], shipping: "International", shippingPrice: 0, payment: "À convenir sur WhatsApp", status: "En préparation", adresse: "9 rue de Lille, Paris, France", tracking: "FR8890231104", retour: { status: "Demandé", reason: "Taille inadaptée", date: "23/08/2026" } }
+];
+
+class Component extends DCLogic {
+  state = {
+    route: "home", productId: null, orderRef: null,
+    category: "Tout", sort: "new", query: "",
+    size: null, color: null, qty: 1,
+    cart: [], products: PRODUCTS.map((p) => ({ ...p, stock: { ...p.stock } })),
+    reviews: REVIEWS.slice(), orders: SEED_ORDERS.slice(),
+    user: null, signup: false, accountTab: "commandes", adminTab: "commandes", pendingProduct: null, authNotice: "",
+    adminOrderRef: null, adminFilter: "Tout", adminQuery: "", lowOnly: false, stockLog: [],
+    np: { name: "", collection: "Manifeste", price: "", colors: "Noir", sizes: "S,M,L,XL", stock: "10", description: "", visuel: "1" },
+    step: 1, shippingId: "france", paymentId: "cb",
+    reviewName: "", reviewText: "", reviewRating: 5,
+    returnOrderRef: "", returnReason: "Taille inadaptée",
+    form: { nom: "", email: "", pass: "", pass2: "", tel: "", ville: "Dakar", adresse: "", pays: "Sénégal", carte: "", exp: "", cvc: "", om: "" },
+    accounts: SEED_ACCOUNTS.slice(), authError: "",
+    toast: "", online: true, canInstall: true
+  };
+
+  componentDidMount() {
+    try {
+      const raw = localStorage.getItem("sulvo-shop-v8");
+      if (raw) {
+        const s = JSON.parse(raw);
+        let accounts = (s.accounts && s.accounts.length) ? s.accounts.slice() : SEED_ACCOUNTS.slice();
+        // Réconciliation : les comptes de démonstration reprennent toujours leur rôle et leur mot de passe d'origine.
+        SEED_ACCOUNTS.forEach((seed) => {
+          const i = accounts.findIndex((a) => a && a.email === seed.email);
+          if (i === -1) accounts.push({ ...seed });
+          else accounts[i] = { ...accounts[i], role: seed.role, hash: seed.hash, nom: accounts[i].nom || seed.nom };
+        });
+        accounts = accounts.map((a) => ({ ...a, role: a.role === "admin" ? "admin" : "client" }));
+        let user = s.user || null;
+        if (user) {
+          const me = accounts.find((a) => a.email === user.email);
+          user = me ? { nom: me.nom, email: me.email, role: me.role, admin: me.role === "admin" } : null;
+        }
+        this.setState({ cart: s.cart || [], orders: s.orders || SEED_ORDERS.slice(), user, products: s.products || this.state.products, reviews: s.reviews || REVIEWS.slice(), accounts });
+      }
+    } catch (e) {}
+    this._on = () => this.setState({ online: navigator.onLine });
+    window.addEventListener("online", this._on);
+    window.addEventListener("offline", this._on);
+    this.setState({ online: navigator.onLine });
+  }
+  componentWillUnmount() {
+    window.removeEventListener("online", this._on);
+    window.removeEventListener("offline", this._on);
+  }
+  persist(patch) {
+    this.setState(patch, () => {
+      try {
+        const { cart, orders, user, products, reviews, accounts } = this.state;
+        localStorage.setItem("sulvo-shop-v8", JSON.stringify({ cart, orders, user, products, reviews, accounts }));
+      } catch (e) {}
+    });
+  }
+  say(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: "" }), 2800);
+  }
+  go(route, patch) {
+    this.setState({ route, ...(patch || {}) });
+    if (typeof window !== "undefined") window.scrollTo(0, 0);
+  }
+  fx() { return FX[this.props.devise] || FX["EUR (€)"]; }
+  money(xof) { const f = this.fx(); return f.fmt(xof * f.r); }
+  stockOf(p) { return Object.keys(p.stock).reduce((a, k) => a + p.stock[k], 0); }
+  stars(n) { return "★★★★★".slice(0, n) + "☆☆☆☆☆".slice(0, 5 - n); }
+  prodReviews(id) { return this.state.reviews.filter((r) => r.productId === id && r.status === "Publié"); }
+  rating(id) {
+    const rs = this.prodReviews(id);
+    if (!rs.length) return 0;
+    return Math.round(rs.reduce((a, r) => a + r.rating, 0) / rs.length);
+  }
+  cartSubtotal() { return this.state.cart.reduce((a, l) => a + l.price * l.qty, 0); }
+  shipObj() { return SHIPPING.find((s) => s.id === this.state.shippingId) || SHIPPING[0]; }
+  shipCost() { return 0; }
+  waLink(o) {
+    const total = o.items.reduce((a, i) => a + i.price * i.qty, 0);
+    const lignes = o.items.map((i) => "• " + i.qty + " × " + i.name + " (" + (i.color ? i.color + ", " : "") + "taille " + i.size + ") — " + this.money(i.price * i.qty));
+    const msg = ["Bonjour " + WA_NAME + ", je souhaite passer cette commande SULVO.", "", "Référence : " + o.ref]
+      .concat(lignes)
+      .concat(["", "Total : " + this.money(total), "", "Nom : " + o.client, "Téléphone : " + (this.state.form.tel || "à communiquer"), "Adresse : " + o.adresse, "Zone : " + o.shipping])
+      .join("\n");
+    return "https://wa.me/" + (this.props.numeroWhatsApp || WHATSAPP) + "?text=" + encodeURIComponent(msg);
+  }
+  myOrdersList() {
+    const u = this.state.user;
+    if (!u) return [];
+    return this.state.orders.filter((o) => o.email === u.email || o.mine);
+  }
+  swatch(name, active, big) {
+    const d = big ? 26 : 15;
+    return {
+      display: "block", width: d + "px", height: d + "px", borderRadius: "50%", padding: 0, cursor: big ? "pointer" : "default",
+      background: HEX[name] || "#777",
+      border: active ? "2px solid " + GOLD : "1px solid rgba(245,243,239,0.4)",
+      outline: active ? "2px solid rgba(201,162,39,0.3)" : "none", outlineOffset: "2px"
+    };
+  }
+  pill(active) {
+    return {
+      background: active ? GOLD : "transparent", color: active ? "#0b0b0b" : INK,
+      border: "1px solid " + (active ? GOLD : "rgba(245,243,239,0.3)"),
+      fontFamily: "Archivo", fontWeight: 800, fontSize: "12px", letterSpacing: "0.08em",
+      textTransform: "uppercase", padding: "10px 15px", cursor: "pointer"
+    };
+  }
+  tag(kind) {
+    const map = {
+      gold: { background: GOLD, color: "#0b0b0b", border: "1px solid " + GOLD },
+      outline: { background: "transparent", color: GOLD, border: "1px solid rgba(201,162,39,0.6)" },
+      muted: { background: "transparent", color: "rgba(245,243,239,0.7)", border: "1px solid rgba(245,243,239,0.3)" }
+    };
+    return { ...map[kind], display: "inline-block", fontSize: "11px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", padding: "5px 10px", whiteSpace: "nowrap" };
+  }
+
+  addToCart = () => {
+    const p = this.state.products.find((x) => x.id === this.state.productId);
+    if (!p) return;
+    const size = this.state.size || Object.keys(p.stock).find((s) => p.stock[s] > 0);
+    const color = this.state.color || p.colors[0];
+    if (!size) { this.say("Pièce en rupture — réassort en cours."); return; }
+    const qty = Math.min(this.state.qty, p.stock[size]);
+    const cart = this.state.cart.slice();
+    const key = p.id + "|" + size + "|" + color;
+    const line = cart.find((l) => l.key === key);
+    if (line) line.qty += qty; else cart.push({ key, productId: p.id, name: p.name, size, color, qty, price: p.price });
+    this.persist({ cart, justAdded: qty + " × " + p.name + " — " + color + ", taille " + size });
+  };
+  setLineQty(key, d) {
+    this.persist({ cart: this.state.cart.map((l) => (l.key === key ? { ...l, qty: Math.max(1, l.qty + d) } : l)) });
+  }
+  removeLine(key) { this.persist({ cart: this.state.cart.filter((l) => l.key !== key) }); }
+
+  placeOrder = () => {
+    const f = this.state.form;
+    const ship = this.shipCost();
+    const ref = "SLV-" + String(Date.now()).slice(-7, -3) + "-" + String(Math.floor(Math.random() * 900) + 100);
+    const order = {
+      ref, date: new Date().toLocaleDateString("fr-FR"),
+      client: f.nom || (this.state.user && this.state.user.nom) || "Client SULVO",
+      email: f.email || (this.state.user && this.state.user.email) || "client@exemple.com",
+      items: this.state.cart.map((l) => ({ productId: l.productId, name: l.name, size: l.size, color: l.color, qty: l.qty, price: l.price })),
+      shipping: this.shipObj().label, shippingPrice: 0,
+      payment: "À convenir sur WhatsApp",
+      status: "En préparation", adresse: [f.adresse, f.ville, f.pays].filter(Boolean).join(", ") || "Dakar, Sénégal",
+      tracking: "SN" + Math.floor(Math.random() * 9000000000 + 1000000000), retour: null, mine: true
+    };
+    const products = this.state.products.map((p) => {
+      const copy = { ...p, stock: { ...p.stock } };
+      this.state.cart.forEach((l) => { if (l.productId === p.id) copy.stock[l.size] = Math.max(0, copy.stock[l.size] - l.qty); });
+      return copy;
+    });
+    let log = this.state.stockLog || [];
+    this.state.cart.forEach((l) => {
+      log = [{ id: Date.now() + Math.random(), date: new Date().toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }), product: l.name, size: l.size, delta: -l.qty, reason: "Commande " + ref }].concat(log);
+    });
+    const user = this.state.user;
+    order.waLink = this.waLink(order);
+    this.persist({ orders: [order, ...this.state.orders], cart: [], products, user, orderRef: ref, stockLog: log.slice(0, 60) });
+    if (typeof window !== "undefined") window.open(order.waLink, "_blank");
+    this.go("confirmation");
+    this.say("Commande " + ref + " — envoie le message WhatsApp pour la valider.");
+  };
+
+  submitReview = () => {
+    const t = this.state.reviewText.trim();
+    if (!t) { this.say("Écris quelques mots avant d'envoyer."); return; }
+    const r = {
+      id: Date.now(), productId: this.state.productId,
+      author: this.state.reviewName.trim() || "Client SULVO",
+      rating: this.state.reviewRating, text: t,
+      date: new Date().toLocaleDateString("fr-FR"), status: "En attente"
+    };
+    this.persist({ reviews: [r, ...this.state.reviews], reviewText: "", reviewName: "" });
+    this.say("Avis envoyé — il apparaîtra après modération.");
+  };
+
+  askReturn(ref, reason) {
+    this.persist({ orders: this.state.orders.map((o) => (o.ref === ref ? { ...o, retour: { status: "Demandé", reason: reason || "Taille inadaptée", date: new Date().toLocaleDateString("fr-FR") } } : o)) });
+    this.say("Demande de retour enregistrée pour " + ref + ".");
+  }
+  advanceOrder(ref) {
+    this.persist({ orders: this.state.orders.map((o) => {
+      if (o.ref !== ref) return o;
+      const i = STATUSES.indexOf(o.status);
+      return { ...o, status: STATUSES[Math.min(STATUSES.length - 1, i + 1)] };
+    }) });
+  }
+  cancelOrder(ref) {
+    this.persist({ orders: this.state.orders.map((o) => (o.ref === ref ? { ...o, status: "Annulée" } : o)) });
+  }
+  advanceReturn(ref) {
+    this.persist({ orders: this.state.orders.map((o) => {
+      if (o.ref !== ref || !o.retour) return o;
+      const i = RETURN_STEPS.indexOf(o.retour.status);
+      return { ...o, retour: { ...o.retour, status: RETURN_STEPS[Math.min(RETURN_STEPS.length - 1, i + 1)] } };
+    }) });
+  }
+  logMove(product, size, delta, reason) {
+    const entry = { id: Date.now() + Math.random(), date: new Date().toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }), product, size, delta, reason };
+    return [entry].concat(this.state.stockLog || []).slice(0, 40);
+  }
+  setStock(id, size, d) {
+    const p = this.state.products.find((x) => x.id === id);
+    this.persist({
+      products: this.state.products.map((x) => (x.id === id ? { ...x, stock: { ...x.stock, [size]: Math.max(0, x.stock[size] + d) } } : x)),
+      stockLog: this.logMove(p.name, size, d, "Ajustement manuel")
+    });
+  }
+  setStockExact(id, size, val) {
+    const n = Math.max(0, parseInt(val, 10) || 0);
+    const p = this.state.products.find((x) => x.id === id);
+    this.persist({
+      products: this.state.products.map((x) => (x.id === id ? { ...x, stock: { ...x.stock, [size]: n } } : x)),
+      stockLog: this.logMove(p.name, size, n - p.stock[size], "Inventaire saisi")
+    });
+  }
+  toggleArchive(id) {
+    const p = this.state.products.find((x) => x.id === id);
+    this.persist({ products: this.state.products.map((x) => (x.id === id ? { ...x, archived: !x.archived } : x)) });
+    this.say(p.archived ? p.name + " remis en ligne." : p.name + " retiré de la boutique.");
+  }
+  setAccountRole(email, role) {
+    if (this.state.user && this.state.user.email === email && role !== "admin") { this.say("Impossible de retirer ton propre accès administrateur."); return; }
+    this.persist({ accounts: this.state.accounts.map((a) => (a.email === email ? { ...a, role } : a)) });
+    this.say(email + " — rôle : " + role + ".");
+  }
+  deleteAccount(email) {
+    if (this.state.user && this.state.user.email === email) { this.say("Impossible de supprimer ton propre compte."); return; }
+    this.persist({ accounts: this.state.accounts.filter((a) => a.email !== email) });
+    this.say("Compte " + email + " supprimé.");
+  }
+  refundOrder(ref) {
+    const o = this.state.orders.find((x) => x.ref === ref);
+    if (!o || o.refunded) return;
+    const amount = o.items.reduce((a, i) => a + i.price * i.qty, 0) + (o.shippingPrice || 0);
+    const products = this.state.products.map((p) => {
+      const copy = { ...p, stock: { ...p.stock } };
+      o.items.forEach((i) => { if (i.productId === p.id && copy.stock[i.size] != null) copy.stock[i.size] += i.qty; });
+      return copy;
+    });
+    let log = this.state.stockLog || [];
+    o.items.forEach((i) => {
+      log = [{ id: Date.now() + Math.random(), date: new Date().toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }), product: i.name, size: i.size, delta: i.qty, reason: "Remboursement " + ref }].concat(log);
+    });
+    this.persist({
+      products, stockLog: log.slice(0, 60),
+      orders: this.state.orders.map((x) => (x.ref === ref ? { ...x, status: "Remboursée", refunded: true, refundAmount: amount } : x))
+    });
+    this.say(ref + " remboursée — " + this.money(amount) + " · stock réintégré.");
+  }
+  updateProduct(id, key, val) {
+    this.persist({ products: this.state.products.map((x) => (x.id === id ? { ...x, [key]: val } : x)) });
+  }
+  deleteProduct(id) {
+    const p = this.state.products.find((x) => x.id === id);
+    if (!p) return;
+    this.persist({
+      products: this.state.products.filter((x) => x.id !== id),
+      delId: null,
+      stockLog: this.logMove(p.name, Object.keys(p.stock).join("/"), -this.stockOf(p), "Fiche supprimée")
+    });
+    this.say(p.name + " supprimé du catalogue.");
+  }
+  duplicateProduct(id) {
+    const p = this.state.products.find((x) => x.id === id);
+    if (!p) return;
+    const nid = Math.max.apply(null, this.state.products.map((x) => x.id)) + 1;
+    const copy = { ...p, id: nid, name: p.name + " (copie)", sku: "SLV-" + String(nid).padStart(3, "0"), stock: { ...p.stock }, archived: true };
+    this.persist({ products: this.state.products.concat([copy]) });
+    this.say(copy.name + " créé en brouillon (retiré de la boutique).");
+  }
+  addProduct = () => {
+    const n = this.state.np;
+    if (!n.name.trim()) { this.say("Donne un nom à la pièce."); return; }
+    const price = parseInt(n.price, 10);
+    if (!price) { this.say("Indique un prix en FCFA."); return; }
+    const sizes = n.sizes.split(",").map((x) => x.trim()).filter(Boolean);
+    const colors = n.colors.split(",").map((x) => x.trim()).filter(Boolean);
+    const per = Math.max(0, parseInt(n.stock, 10) || 0);
+    const id = Math.max.apply(null, this.state.products.map((p) => p.id)) + 1;
+    const src = parseInt(n.visuel, 10) || 1;
+    IMGS[id] = IMGS[src]; if (PNG[src]) PNG[id] = 1;
+    const stock = {};
+    sizes.forEach((sz) => (stock[sz] = per));
+    const product = {
+      id, name: n.name.trim(), collection: n.collection, price, sizes,
+      stock, colors: colors.length ? colors : ["Noir"],
+      description: n.description.trim() || "Nouvelle pièce SULVO.",
+      sku: "SLV-" + String(id).padStart(3, "0")
+    };
+    this.persist({
+      products: this.state.products.concat([product]),
+      stockLog: this.logMove(product.name, sizes.join("/"), per * sizes.length, "Création fiche"),
+      np: { name: "", collection: n.collection, price: "", colors: "Noir", sizes: "S,M,L,XL", stock: "10", description: "", visuel: n.visuel }
+    });
+    this.say(product.name + " ajouté au catalogue.");
+  };
+  setOrderField(ref, key, val) {
+    this.persist({ orders: this.state.orders.map((o) => (o.ref === ref ? { ...o, [key]: val } : o)) });
+  }
+  setOrderStatus(ref, status) {
+    this.persist({ orders: this.state.orders.map((o) => (o.ref === ref ? { ...o, status } : o)) });
+    this.say(ref + " — " + status.toLowerCase() + ".");
+  }
+  resolveReturn(ref, resolution) {
+    const order = this.state.orders.find((o) => o.ref === ref);
+    const refund = order.items.reduce((a, i) => a + i.price * i.qty, 0);
+    let products = this.state.products;
+    let log = this.state.stockLog || [];
+    if (resolution === "Remboursé" || resolution === "Échangé") {
+      products = products.map((p) => {
+        const copy = { ...p, stock: { ...p.stock } };
+        order.items.forEach((i) => { if (i.productId === p.id && copy.stock[i.size] !== undefined) copy.stock[i.size] += i.qty; });
+        return copy;
+      });
+      order.items.forEach((i) => {
+        log = [{ id: Date.now() + Math.random(), date: new Date().toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }), product: i.name, size: i.size, delta: i.qty, reason: "Retour " + ref }].concat(log);
+      });
+      log = log.slice(0, 40);
+    }
+    this.persist({
+      products, stockLog: log,
+      orders: this.state.orders.map((o) => (o.ref === ref ? { ...o, retour: { ...o.retour, status: resolution, refund: resolution === "Remboursé" ? refund : 0, closed: true } } : o))
+    });
+    this.say("Litige " + ref + " : " + resolution.toLowerCase() + ".");
+  }
+  setReturnNote(ref, note) {
+    this.persist({ orders: this.state.orders.map((o) => (o.ref === ref && o.retour ? { ...o, retour: { ...o.retour, note } } : o)) });
+  }
+  restock(id) {
+    this.persist({ products: this.state.products.map((p) => {
+      if (p.id !== id) return p;
+      const stock = {};
+      Object.keys(p.stock).forEach((s) => (stock[s] = p.stock[s] + 10));
+      return { ...p, stock };
+    }) });
+    this.say("+10 par taille réapprovisionnés.");
+  }
+  moderate(id, status) {
+    this.persist({ reviews: this.state.reviews.map((r) => (r.id === id ? { ...r, status } : r)) });
+  }
+  login = () => {
+    const f = this.state.form;
+    const email = (f.email || "").trim().toLowerCase();
+    const pass = f.pass || "";
+    const fail = (msg) => this.setState({ authError: msg });
+    if (!email) return fail("Renseigne ton adresse e-mail.");
+    if (!EMAIL_RE.test(email)) return fail("Adresse e-mail invalide — format attendu : nom@domaine.sn");
+    const accounts = this.state.accounts && this.state.accounts.length ? this.state.accounts : SEED_ACCOUNTS.slice();
+    const found = accounts.find((a) => a.email === email);
+
+    if (this.state.signup) {
+      const nom = (f.nom || "").trim();
+      if (nom.length < 2) return fail("Indique ton nom complet.");
+      if (found) return fail("Un compte existe déjà avec cette adresse. Passe par Connexion.");
+      if (pass.length < 8) return fail("Mot de passe trop court — 8 caractères minimum.");
+      if (!/[0-9]/.test(pass)) return fail("Le mot de passe doit contenir au moins un chiffre.");
+      if (pass !== (f.pass2 || "")) return fail("Les deux mots de passe ne correspondent pas.");
+      const account = { email, nom, role: "client", hash: HASH(pass), created: new Date().toLocaleDateString("fr-FR") };
+      this.finishAuth(accounts.concat([account]), account, "Compte créé. Bienvenue, " + nom + ".");
+      return;
+    }
+
+    if (!found) return fail("Aucun compte avec cette adresse. Crée un compte pour continuer.");
+    if (!pass) return fail("Saisis ton mot de passe.");
+    if (found.hash !== HASH(pass)) return fail("Mot de passe incorrect.");
+    this.finishAuth(accounts, found, "Bienvenue, " + found.nom + ".");
+  };
+  finishAuth(accounts, account, msg) {
+    const user = { nom: account.nom, email: account.email, admin: account.role === "admin", role: account.role };
+    const pending = this.state.pendingProduct;
+    const route = pending ? "produit" : user.admin ? "dashboard" : "compte";
+    this.persist({
+      accounts, user, route, authError: "", authNotice: "", pendingProduct: null,
+      form: { ...this.state.form, pass: "", pass2: "" },
+      ...(pending ? { productId: pending, size: null, color: null, qty: 1, view: 0 } : {})
+    });
+    if (typeof window !== "undefined") window.scrollTo(0, 0);
+    this.say(msg);
+  }
+  field(k) { return (e) => this.setState({ form: { ...this.state.form, [k]: e.target.value } }); }
+
+  renderVals() {
+    const s = this.state;
+    const prods = s.products;
+    const q = s.query.trim().toLowerCase();
+    let list = prods.filter((p) => (s.category === "Tout" || p.collection === s.category) && (!q || p.name.toLowerCase().includes(q) || p.collection.toLowerCase().includes(q)));
+    if (s.sort === "asc") list = list.slice().sort((a, b) => a.price - b.price);
+    if (s.sort === "desc") list = list.slice().sort((a, b) => b.price - a.price);
+    if (s.sort === "rating") list = list.slice().sort((a, b) => this.rating(b.id) - this.rating(a.id));
+    if (s.sort === "new") list = list.slice().sort((a, b) => b.id - a.id);
+
+    const card = (p) => {
+      const st = this.stockOf(p);
+      return {
+        ...p, priceLabel: this.money(p.price), imgStyle: IMGBOX(p.id, 0),
+        stockLabel: st === 0 ? "Rupture" : st + " en stock",
+        isLow: st > 0 && st <= 8, lowLabel: st <= 8 ? "Plus que " + st : "",
+        colorLabel: p.colors.join(" · "),
+        ratingLabel: this.rating(p.id) ? this.stars(this.rating(p.id)) : "Nouveau",
+        swatches: p.colors.map((c) => ({ name: c, style: this.swatch(c, false, false) })),
+        open: () => {
+          if (!this.state.user) { this.setState({ pendingProduct: p.id, authNotice: "Connecte-toi ou crée un compte pour ouvrir la fiche de « " + p.name + " »." }); this.go("auth"); return; }
+          this.go("produit", { productId: p.id, size: null, color: null, qty: 1, view: 0 });
+        }
+      };
+    };
+
+    const product = prods.find((p) => p.id === s.productId) || prods[0];
+    const pRevs = this.prodReviews(product.id);
+    const sizes = Object.keys(product.stock);
+    const activeSize = s.size || sizes.find((x) => product.stock[x] > 0) || sizes[0];
+    const activeColor = s.color || product.colors[0];
+
+    const cartLines = s.cart.map((l) => ({
+      ...l, unitLabel: this.money(l.price), totalLabel: this.money(l.price * l.qty), imgStyle: IMGBOX(l.productId, 0),
+      variantLabel: (l.color ? l.color + " · " : "") + "Taille " + l.size,
+      inc: () => this.setLineQty(l.key, 1), dec: () => this.setLineQty(l.key, -1),
+      remove: () => this.removeLine(l.key)
+    }));
+    const sub = this.cartSubtotal();
+    const ship = this.shipCost();
+
+    const tagFor = (st) => st === "Livrée" || st === "Remboursé" ? this.tag("muted") : st === "Annulée" || st === "Remboursée" ? this.tag("outline") : this.tag("gold");
+    const trackChips = (o) => {
+      const i = STATUSES.indexOf(o.status);
+      return STATUSES.map((label, k) => ({
+        label,
+        style: {
+          fontSize: "11px", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase", padding: "6px 10px",
+          border: "1px solid " + (k <= i ? GOLD : "rgba(245,243,239,0.25)"),
+          background: k <= i ? GOLD : "transparent",
+          color: k <= i ? "#0b0b0b" : "rgba(245,243,239,0.5)"
+        }
+      }));
+    };
+    const orderRow = (o) => ({
+      ...o, totalLabel: this.money(o.items.reduce((a, i) => a + i.price * i.qty, 0) + o.shippingPrice),
+      itemsLabel: o.items.reduce((a, i) => a + i.qty, 0) + " article(s)",
+      tagStyle: tagFor(o.status), track: trackChips(o),
+      canReturn: o.status === "Livrée" && !o.retour,
+      hasReturn: !!o.retour, returnStatus: o.retour ? o.retour.status : "",
+      open: () => this.go("compte", { orderRef: o.ref, accountTab: "detail" }),
+      askReturn: () => this.askReturn(o.ref, "Taille inadaptée")
+    });
+
+    const myOrders = this.myOrdersList().map(orderRow);
+    const openRaw = this.state.orders.find((o) => o.ref === s.orderRef) || this.myOrdersList()[0] || this.state.orders[0];
+    const oi = STATUSES.indexOf(openRaw.status);
+    const openOrder = {
+      ...openRaw,
+      totalLabel: this.money(openRaw.items.reduce((a, i) => a + i.price * i.qty, 0) + openRaw.shippingPrice),
+      items: openRaw.items.map((i) => ({ ...i, totalLabel: this.money(i.price * i.qty), variantLabel: (i.color ? i.color + " · " : "") + "taille " + i.size })),
+      timeline: STATUSES.map((label, k) => ({
+        label, date: k <= oi ? openRaw.date : "—",
+        dot: { display: "block", width: "14px", height: "14px", background: k <= oi ? GOLD : "transparent", border: "2px solid " + (k <= oi ? GOLD : "rgba(245,243,239,0.3)") },
+        text: { fontSize: "14px", fontWeight: k <= oi ? 800 : 400, color: k <= oi ? INK : "rgba(245,243,239,0.5)" }
+      }))
+    };
+
+    const returnable = this.myOrdersList().filter((o) => !o.retour);
+    const lastRaw = this.state.orders.find((o) => o.ref === s.orderRef) || this.state.orders[0];
+
+    const aq = s.adminQuery.trim().toLowerCase();
+    const adminOrders = this.state.orders
+      .filter((o) => (s.adminFilter === "Tout" || o.status === s.adminFilter) && (!aq || o.ref.toLowerCase().includes(aq) || o.client.toLowerCase().includes(aq) || o.email.toLowerCase().includes(aq)))
+      .map((o) => {
+        const i = STATUSES.indexOf(o.status);
+        return {
+          ...orderRow(o),
+          canAdvance: i >= 0 && i < STATUSES.length - 1,
+          nextLabel: i >= 0 && i < STATUSES.length - 1 ? "→ " + STATUSES[i + 1] : "",
+          canCancel: o.status === "En préparation",
+          advance: () => this.advanceOrder(o.ref),
+          cancel: () => this.cancelOrder(o.ref),
+          inspect: () => this.setState({ adminOrderRef: o.ref }),
+          rowStyle: { borderBottom: "1px solid rgba(245,243,239,0.14)", background: s.adminOrderRef === o.ref ? "rgba(201,162,39,0.09)" : "transparent" }
+        };
+      });
+    const adminReturns = this.state.orders.filter((o) => o.retour).map((o) => {
+      const i = RETURN_STEPS.indexOf(o.retour.status);
+      const closed = !!o.retour.closed;
+      const refund = o.items.reduce((a, x) => a + x.price * x.qty, 0);
+      return {
+        ref: o.ref, client: o.client, reason: o.retour.reason, date: o.retour.date, status: o.retour.status,
+        tagStyle: tagFor(o.retour.status), itemsLabel: o.items.map((x) => x.qty + " × " + x.name + " (" + x.size + ")").join(", "),
+        refundLabel: this.money(o.retour.refund || refund), note: o.retour.note || "",
+        open: !closed, closedLabel: closed ? "Clos" : "Ouvert",
+        canAdvance: !closed && i >= 0 && i < RETURN_STEPS.length - 1,
+        nextLabel: i >= 0 && i < RETURN_STEPS.length - 1 ? "→ " + RETURN_STEPS[i + 1] : "",
+        advance: () => this.advanceReturn(o.ref),
+        onNote: (e) => this.setReturnNote(o.ref, e.target.value),
+        resolutions: RESOLUTIONS.map((r) => ({
+          label: r, apply: () => this.resolveReturn(o.ref, r),
+          style: { background: r === "Remboursé" ? GOLD : "transparent", color: r === "Remboursé" ? "#0b0b0b" : INK, border: "1px solid " + (r === "Remboursé" ? GOLD : "rgba(245,243,239,0.3)"), fontFamily: "Archivo", fontWeight: 800, fontSize: "11px", letterSpacing: "0.06em", textTransform: "uppercase", padding: "8px 12px", cursor: "pointer", whiteSpace: "nowrap" }
+        }))
+      };
+    });
+    const inspected = this.state.orders.find((o) => o.ref === s.adminOrderRef);
+    const shipQueue = this.state.orders.filter((o) => o.status !== "Livrée" && o.status !== "Annulée").map((o) => {
+      const i = STATUSES.indexOf(o.status);
+      return {
+        ref: o.ref, client: o.client, zone: o.shipping, status: o.status, tagStyle: tagFor(o.status),
+        carrier: o.carrier || "À assigner", tracking: o.tracking || "",
+        onCarrier: (e) => this.setOrderField(o.ref, "carrier", e.target.value),
+        onTracking: (e) => this.setOrderField(o.ref, "tracking", e.target.value),
+        canAdvance: i < STATUSES.length - 1, nextLabel: i < STATUSES.length - 1 ? STATUSES[i + 1] : "",
+        advance: () => this.setOrderStatus(o.ref, STATUSES[i + 1]),
+        carriers: CARRIERS
+      };
+    });
+    const zones = SHIPPING.map((z) => {
+      const rows = this.state.orders.filter((o) => o.shipping === z.label && o.status !== "Annulée");
+      return { label: z.label, count: String(rows.length), pending: String(rows.filter((o) => o.status !== "Livrée").length) };
+    });
+    const revenue = this.state.orders.filter((o) => o.status !== "Annulée" && o.status !== "Remboursée").reduce((a, o) => a + o.items.reduce((b, i) => b + i.price * i.qty, 0), 0);
+    const lowStock = prods.filter((p) => this.stockOf(p) <= 8).length;
+
+    const netOrders = s.orders.filter((o) => o.status !== "Annulée" && o.status !== "Remboursée");
+    const refundedOrders = s.orders.filter((o) => o.refunded);
+    const refundedTotal = refundedOrders.reduce((a, o) => a + (o.refundAmount || 0), 0);
+    const monthTag = new Date().toLocaleDateString("fr-FR").slice(3);
+    const caMonth = netOrders.filter((o) => String(o.date).slice(3) === monthTag).reduce((a, o) => a + o.items.reduce((b, i) => b + i.price * i.qty, 0), 0);
+    const colTotals = {};
+    const prodTotals = {};
+    netOrders.forEach((o) => o.items.forEach((i) => {
+      const p = prods.find((x) => x.id === i.productId);
+      const col = p ? p.collection : "Autre";
+      colTotals[col] = (colTotals[col] || 0) + i.price * i.qty;
+      const k = i.name;
+      prodTotals[k] = prodTotals[k] || { name: k, qty: 0, amount: 0 };
+      prodTotals[k].qty += i.qty;
+      prodTotals[k].amount += i.price * i.qty;
+    }));
+    const colRows = COLLECTIONS.map((c) => ({ label: c.name, amount: colTotals[c.name] || 0 })).sort((a, b) => b.amount - a.amount);
+    const colMax = Math.max.apply(null, colRows.map((c) => c.amount).concat([1]));
+    const topRows = Object.keys(prodTotals).map((k) => prodTotals[k]).sort((a, b) => b.qty - a.qty).slice(0, 5);
+
+    const tabBtn = (cur, val, label, key) => ({ label, style: this.pill(cur === val), select: () => this.setState({ [key]: val }) });
+
+    return {
+      statusLine: s.online ? (s.user ? "Connecté — " + s.user.email : "Retours 14 jours · Commande validée sur WhatsApp") : "Mode hors ligne — le panier est conservé",
+      canInstall: s.canInstall,
+      install: () => { this.setState({ canInstall: false }); this.say("Ajoute SULVO à ton écran d'accueil depuis le menu du navigateur."); },
+      cartCountLabel: s.cart.length ? "(" + s.cart.reduce((a, l) => a + l.qty, 0) + ")" : "",
+      cartCount: s.cart.reduce((a, l) => a + l.qty, 0),
+      query: s.query, onQuery: (e) => this.setState({ query: e.target.value, route: "catalogue" }),
+      sort: s.sort, onSort: (e) => this.setState({ sort: e.target.value }),
+
+      isHome: s.route === "home", isManifeste: s.route === "manifeste", isCatalogue: s.route === "catalogue",
+      isProduit: s.route === "produit", isPanier: s.route === "panier", isCheckout: s.route === "checkout",
+      isConfirmation: s.route === "confirmation",
+      isAuth: s.route === "auth" || (!s.user && (s.route === "compte" || s.route === "admin" || s.route === "dashboard" || s.route === "produit")),
+      isCompte: s.route === "compte" && !!s.user && !s.user.admin,
+      isAdmin: s.route === "admin" && !!s.user && !!s.user.admin,
+      isDashboard: s.route === "dashboard" && !!s.user && !!s.user.admin,
+      hasAuthNotice: !!s.authNotice, authNotice: s.authNotice || "",
+      dashSubtitle: (s.user ? s.user.nom + " · " + s.user.email : "") + " · accès administrateur",
+      goDashboard: () => this.go("dashboard"),
+      goGestion: () => this.go("admin", { adminTab: "commandes" }),
+      dashShortcuts: [
+        { label: "Ajouter un produit", tab: "nouveau" },
+        { label: "Stock", tab: "produits" },
+        { label: "Commandes", tab: "commandes" },
+        { label: "Livraisons", tab: "livraisons" },
+        { label: "Litiges & remboursements", tab: "retours" },
+        { label: "Avis", tab: "avis" }
+      ].map((d) => ({ label: d.label, open: () => this.go("admin", { adminTab: d.tab }) })),
+
+      goHome: () => this.go("home"), goCatalogue: () => this.go("catalogue"), goManifeste: () => this.go("manifeste"),
+      goPanier: () => this.go("panier"), goCheckout: () => this.go("checkout", { step: 1 }),
+      goCompte: () => (s.user && s.user.admin) ? this.go("dashboard") : this.go(s.user ? "compte" : "auth", s.user ? { accountTab: "commandes" } : { authNotice: "Connecte-toi pour accéder à ton espace client." }),
+      goAdmin: () => (s.user && s.user.admin) ? this.go("dashboard") : this.go("auth", { authNotice: "Espace administrateur — connecte-toi avec un compte dont le rôle est administrateur.", authError: "", signup: false }),
+
+      collections: COLLECTIONS.map((c) => ({
+        name: c.name, line: c.line,
+        count: prods.filter((p) => p.collection === c.name).length,
+        open: () => this.go("catalogue", { category: c.name })
+      })),
+      featured: list.slice(0, 4).map(card),
+      catalogue: list.map(card),
+      categories: ["Tout"].concat(COLLECTIONS.map((c) => c.name)).map((label) => ({
+        label, style: this.pill(s.category === label), select: () => this.setState({ category: label })
+      })),
+      resultLabel: list.length + " pièce(s) — " + (s.category === "Tout" ? "toutes collections" : s.category),
+      valeurs: VALEURS,
+      homeReviews: this.state.reviews.filter((r) => r.status === "Publié").slice(0, 3).map((r) => ({ ...r, stars: this.stars(r.rating), productName: (prods.find((p) => p.id === r.productId) || {}).name || "" })),
+
+      product: {
+        ...card(product),
+        imgStyleLarge: IMGBOX(product.id, Math.min(s.view || 0, (IMGS[product.id] || []).length - 1), FIT[product.id] || "contain"),
+        views: (IMGS[product.id] || []).map((n, i) => ({
+          select: () => this.setState({ view: i }),
+          style: {
+            all: "unset", cursor: "pointer", width: "62px", height: "62px",
+            backgroundImage: "url(" + IMG(product.id, i) + ")",
+            backgroundSize: "cover", backgroundPosition: "center", backgroundColor: "#171615",
+            border: "2px solid " + ((s.view || 0) === i ? "#c9a227" : "rgba(245,243,239,0.2)")
+          }
+        })),
+        description: product.description, sku: product.sku,
+        reviewCount: pRevs.length,
+        reviews: pRevs.map((r) => ({ ...r, stars: this.stars(r.rating) })),
+        stockDetail: product.stock[activeSize] > 0 ? product.stock[activeSize] + " disponibles en " + activeSize : "Taille " + activeSize + " épuisée",
+        colorOptions: product.colors.map((c) => ({ name: c, style: this.swatch(c, c === activeColor, true), select: () => this.setState({ color: c }) })),
+        sizeOptions: sizes.map((x) => ({
+          label: x, disabled: product.stock[x] === 0,
+          style: { ...this.pill(x === activeSize), minWidth: "56px", opacity: product.stock[x] === 0 ? 0.4 : 1 },
+          select: () => this.setState({ size: x, qty: 1 })
+        }))
+      },
+      colorName: activeColor,
+      qty: s.qty,
+      qtyUp: () => this.setState({ qty: s.qty + 1 }),
+      qtyDown: () => this.setState({ qty: Math.max(1, s.qty - 1) }),
+      addLabel: this.props.boutiqueOuverte === false ? "Précommander" : "Ajouter au panier",
+      addToCart: this.addToCart,
+      ratingOptions: [1, 2, 3, 4, 5].map((n) => ({ label: String(n), style: { ...this.pill(s.reviewRating === n), minWidth: "44px" }, select: () => this.setState({ reviewRating: n }) })),
+      reviewName: s.reviewName, onReviewName: (e) => this.setState({ reviewName: e.target.value }),
+      reviewText: s.reviewText, onReviewText: (e) => this.setState({ reviewText: e.target.value }),
+      submitReview: this.submitReview,
+
+      cartLines, cartEmpty: !s.cart.length, cartHasItems: s.cart.length > 0,
+      justAdded: !!s.justAdded, justAddedLabel: s.justAdded || "",
+      closeAdded: () => this.setState({ justAdded: null }),
+      finishFromCart: () => { this.setState({ justAdded: null }); this.go("panier"); },
+      subtotalLabel: this.money(sub),
+      shippingLabel: ship === 0 ? "Offerte" : this.money(ship),
+      totalLabel: this.money(sub + ship),
+      freeShipNote: "Livraison et règlement se confirment directement avec " + WA_NAME + " sur WhatsApp.",
+
+      steps: [1, 3].map((n, k) => ({
+        label: (k + 1) + ". " + (n === 1 ? "Coordonnées & livraison" : "Vérification"),
+        style: { flex: "1 1 180px", padding: "14px 18px", fontWeight: 800, fontSize: "13px", letterSpacing: "0.08em", textTransform: "uppercase", borderRight: "1px solid rgba(245,243,239,0.14)", background: s.step === n ? GOLD : "transparent", color: s.step === n ? "#0b0b0b" : s.step > n ? GOLD : "rgba(245,243,239,0.5)" }
+      })),
+      step1: s.step === 1, step2: s.step === 2, step3: s.step === 3,
+      next: () => this.setState({ step: 3 }),
+      back: () => this.setState({ step: 1 }),
+      shippingOptions: SHIPPING.map((o) => ({
+        label: o.label,
+        select: () => this.setState({ shippingId: o.id }),
+        style: { all: "unset", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", padding: "14px 16px", borderBottom: "1px solid rgba(245,243,239,0.14)", background: s.shippingId === o.id ? "rgba(201,162,39,0.12)" : "transparent", borderLeft: "4px solid " + (s.shippingId === o.id ? GOLD : "transparent"), color: INK }
+      })),
+      paymentOptions: PAYMENTS.map((o) => ({
+        label: o.label, note: o.note,
+        select: () => this.setState({ paymentId: o.id }),
+        style: { all: "unset", cursor: "pointer", display: "flex", flexDirection: "column", gap: "4px", alignItems: "flex-start", padding: "16px", border: "2px solid " + (s.paymentId === o.id ? GOLD : "rgba(245,243,239,0.2)"), background: s.paymentId === o.id ? "rgba(201,162,39,0.12)" : "transparent", color: INK }
+      })),
+      showCardForm: s.paymentId === "cb" || s.paymentId === "wallet",
+      showMobileForm: s.paymentId === "om",
+      recapAdresse: [s.form.nom, s.form.adresse, s.form.ville, s.form.pays].filter(Boolean).join(", ") || "Adresse à compléter",
+      recapLivraison: this.shipObj().label,
+      recapPaiement: "Commande envoyée à " + WA_NAME + " sur WhatsApp",
+      placeOrder: this.placeOrder,
+
+      lastOrder: {
+        ref: lastRaw.ref, email: lastRaw.email, shipping: lastRaw.shipping,
+        waLink: lastRaw.waLink || (lastRaw.items ? this.waLink(lastRaw) : "https://wa.me/" + (this.props.numeroWhatsApp || WHATSAPP)),
+        totalLabel: this.money(lastRaw.items.reduce((a, i) => a + i.price * i.qty, 0) + lastRaw.shippingPrice)
+      },
+
+      authTitle: s.signup ? "Créer un compte" : "Connexion",
+      authCta: s.signup ? "Créer mon compte" : "Se connecter",
+      authModes: [
+        { label: "Connexion", on: !s.signup, v: false },
+        { label: "Créer un compte", on: s.signup, v: true }
+      ].map((m) => ({ label: m.label, style: this.pill(m.on), select: () => this.setState({ signup: m.v, authError: "", form: { ...s.form, pass: "", pass2: "" } }) })),
+      hasAuthError: !!s.authError, authError: s.authError || "",
+      authHint: s.signup
+        ? "Le compte est créé sur cet appareil. E-mail valide et mot de passe de 8 caractères minimum avec au moins un chiffre."
+        : "Compte administrateur de démonstration : admin@sulvo.sn / Sulvo2026! — compte client de démonstration : client@sulvo.sn / Client2026!",
+      onAuthKey: (e) => { if (e.key === "Enter") this.login(); },
+      isSignup: s.signup, toggleAuth: () => this.setState({ signup: !s.signup, authError: "" }),
+      login: this.login,
+      logout: () => { this.persist({ user: null, route: "home", authError: "", authNotice: "", pendingProduct: null }); this.say("À bientôt."); },
+
+      userLine: s.user ? s.user.nom + " · " + s.user.email + (s.user.admin ? " · accès administrateur" : "") : "",
+      accountTabs: [tabBtn(s.accountTab, "commandes", "Commandes", "accountTab"), tabBtn(s.accountTab, "detail", "Suivi", "accountTab"), tabBtn(s.accountTab, "retours", "Retours", "accountTab"), tabBtn(s.accountTab, "infos", "Informations", "accountTab")],
+      tabCommandes: s.accountTab === "commandes", tabDetail: s.accountTab === "detail",
+      tabRetours: s.accountTab === "retours", tabInfos: s.accountTab === "infos",
+      myOrders, noOrders: myOrders.length === 0, openOrder,
+      backToOrders: () => this.setState({ accountTab: "commandes" }),
+      myReturns: this.myOrdersList().filter((o) => o.retour).map((o) => ({ ref: o.ref, status: o.retour.status, reason: o.retour.reason, date: o.retour.date, tagStyle: tagFor(o.retour.status) })),
+      noReturns: this.myOrdersList().filter((o) => o.retour).length === 0,
+      returnableOrders: returnable.map((o) => ({ ref: o.ref, label: o.ref + " — " + o.date })),
+      returnOrderRef: s.returnOrderRef || (returnable[0] && returnable[0].ref) || "",
+      onReturnOrder: (e) => this.setState({ returnOrderRef: e.target.value }),
+      returnReason: s.returnReason, onReturnReason: (e) => this.setState({ returnReason: e.target.value }),
+      submitReturn: () => {
+        const ref = s.returnOrderRef || (returnable[0] && returnable[0].ref);
+        if (!ref) { this.say("Aucune commande éligible au retour."); return; }
+        this.askReturn(ref, s.returnReason);
+      },
+      saveProfile: () => { this.persist({ user: { ...s.user, nom: s.form.nom || s.user.nom, email: s.form.email || s.user.email } }); this.say("Informations enregistrées."); },
+
+      kpis: [
+        { label: "Chiffre d'affaires", value: this.money(revenue) },
+        { label: "Commandes", value: String(this.state.orders.length) },
+        { label: "À expédier", value: String(this.state.orders.filter((o) => o.status === "En préparation").length) },
+        { label: "En transit", value: String(this.state.orders.filter((o) => o.status === "Expédiée" || o.status === "En transit").length) },
+        { label: "Stock faible", value: lowStock + " réf." },
+        { label: "Litiges ouverts", value: String(this.state.orders.filter((o) => o.retour && !o.retour.closed).length) },
+        { label: "Avis à modérer", value: String(this.state.reviews.filter((r) => r.status === "En attente").length) }
+      ],
+      adminTabs: [
+        tabBtn(s.adminTab, "commandes", "Commandes", "adminTab"),
+        tabBtn(s.adminTab, "livraisons", "Livraisons", "adminTab"),
+        tabBtn(s.adminTab, "produits", "Stock", "adminTab"),
+        tabBtn(s.adminTab, "nouveau", "Ajouter un produit", "adminTab"),
+        tabBtn(s.adminTab, "retours", "Litiges & retours", "adminTab"),
+        tabBtn(s.adminTab, "avis", "Avis", "adminTab"),
+        tabBtn(s.adminTab, "comptes", "Comptes", "adminTab")
+      ],
+      adminDashTab: s.adminTab === "dashboard",
+      goReviewsTab: () => this.go("admin", { adminTab: "avis" }),
+      caCards: [
+        { label: "CA encaissé", value: this.money(revenue), note: netOrders.length + " commande(s) valides" },
+        { label: "CA du mois", value: this.money(caMonth), note: "mois en cours" },
+        { label: "Panier moyen", value: this.money(netOrders.length ? Math.round(revenue / netOrders.length) : 0), note: "par commande" },
+        { label: "Remboursé", value: this.money(refundedTotal), note: refundedOrders.length + " remboursement(s)" }
+      ],
+      caByCollection: colRows.map((c) => ({
+        label: c.label, value: this.money(c.amount),
+        barStyle: "height:8px;background:#c9a227;width:" + (colMax ? Math.round((c.amount / colMax) * 100) : 0) + "%"
+      })),
+      statusRows: STATUSES.concat(["Remboursée", "Annulée"]).map((st) => {
+        const rows = s.orders.filter((o) => o.status === st);
+        return {
+          label: st, count: String(rows.length),
+          amount: this.money(rows.reduce((a, o) => a + o.items.reduce((b, i) => b + i.price * i.qty, 0), 0)),
+          open: () => this.setState({ adminTab: "commandes", adminFilter: st, adminOrderRef: null })
+        };
+      }),
+      topSellers: topRows.map((t, i) => ({ rank: String(i + 1).padStart(2, "0"), name: t.name, qty: String(t.qty), amount: this.money(t.amount) })),
+      noTopSellers: !topRows.length,
+      latestReviews: s.reviews.slice(0, 3).map((r) => {
+        const p = prods.find((x) => x.id === r.productId);
+        return {
+          productName: p ? p.name : "Pièce SULVO", stars: this.stars(r.rating), text: r.text,
+          author: r.author || r.nom || "Client", date: r.date, status: r.status,
+          tagStyle: r.status === "Publié" ? this.tag("muted") : this.tag("outline")
+        };
+      }),
+
+      adminAccountsTab: s.adminTab === "comptes",
+      accountRows: (s.accounts || []).map((a) => {
+        const own = s.orders.filter((o) => o.email === a.email);
+        const spend = own.filter((o) => o.status !== "Annulée" && o.status !== "Remboursée").reduce((x, o) => x + o.items.reduce((b, i) => b + i.price * i.qty, 0), 0);
+        return {
+          email: a.email, nom: a.nom, created: a.created || "—",
+          roleLabel: a.role === "admin" ? "Administrateur" : "Client",
+          tagStyle: a.role === "admin" ? this.tag("gold") : this.tag("outline"),
+          orders: String(own.length), spend: this.money(spend),
+          isSelf: !!(s.user && s.user.email === a.email),
+          notSelf: !(s.user && s.user.email === a.email),
+          promoteLabel: a.role === "admin" ? "Passer en client" : "Passer en admin",
+          promote: () => this.setAccountRole(a.email, a.role === "admin" ? "client" : "admin"),
+          remove: () => this.deleteAccount(a.email)
+        };
+      }),
+      accountsCount: (s.accounts || []).length + " compte(s) · " + (s.accounts || []).filter((a) => a.role === "admin").length + " administrateur(s)",
+
+      adminStock: s.adminTab === "produits", adminOrdersTab: s.adminTab === "commandes",
+      adminReviewsTab: s.adminTab === "avis", adminReturnsTab: s.adminTab === "retours",
+      adminShipTab: s.adminTab === "livraisons", adminNewTab: s.adminTab === "nouveau",
+
+      adminFilters: ["Tout"].concat(STATUSES).concat(["Remboursée", "Annulée"]).map((f) => ({
+        label: f, style: this.pill(s.adminFilter === f), select: () => this.setState({ adminFilter: f, adminOrderRef: null })
+      })),
+      adminQuery: s.adminQuery, onAdminQuery: (e) => this.setState({ adminQuery: e.target.value }),
+      adminOrdersCount: adminOrders.length + " commande(s)",
+      hasInspected: !!inspected,
+      inspected: inspected ? {
+        ref: inspected.ref, client: inspected.client, email: inspected.email, date: inspected.date,
+        status: inspected.status, tagStyle: tagFor(inspected.status),
+        adresse: inspected.adresse, payment: inspected.payment, shipping: inspected.shipping,
+        carrier: inspected.carrier || "À assigner", tracking: inspected.tracking,
+        items: inspected.items.map((i) => ({ ...i, variantLabel: (i.color ? i.color + " · " : "") + i.size, totalLabel: this.money(i.price * i.qty) })),
+        subtotalLabel: this.money(inspected.items.reduce((a, i) => a + i.price * i.qty, 0)),
+        shipLabel: this.money(inspected.shippingPrice),
+        totalLabel: this.money(inspected.items.reduce((a, i) => a + i.price * i.qty, 0) + inspected.shippingPrice),
+        timeline: STATUSES.map((label, k) => {
+          const cur = STATUSES.indexOf(inspected.status);
+          return { label, style: { fontSize: "11px", letterSpacing: "0.08em", textTransform: "uppercase", padding: "7px 11px", border: "1px solid " + (k <= cur ? GOLD : "rgba(245,243,239,0.25)"), background: k <= cur ? GOLD : "transparent", color: k <= cur ? "#0b0b0b" : "rgba(245,243,239,0.6)", fontWeight: 800 } };
+        }),
+        close: () => this.setState({ adminOrderRef: null }),
+        actions: STATUSES.map((st) => ({ label: st, style: this.pill(inspected.status === st), apply: () => this.setOrderStatus(inspected.ref, st) })),
+        cancel: () => this.cancelOrder(inspected.ref),
+        canCancel: inspected.status !== "Annulée" && inspected.status !== "Livrée" && !inspected.refunded,
+        canRefund: !inspected.refunded && inspected.status !== "Annulée",
+        refunded: !!inspected.refunded,
+        refundLabel: inspected.refundAmount ? " " + this.money(inspected.refundAmount) : "",
+        refund: () => this.refundOrder(inspected.ref)
+      } : null,
+
+      shipQueue, noShipQueue: shipQueue.length === 0, zones,
+
+      np: s.np,
+      onNp: (k) => (e) => this.setState({ np: { ...s.np, [k]: e.target.value } }),
+      npName: (e) => this.setState({ np: { ...s.np, name: e.target.value } }),
+      npPrice: (e) => this.setState({ np: { ...s.np, price: e.target.value } }),
+      npCollection: (e) => this.setState({ np: { ...s.np, collection: e.target.value } }),
+      npColors: (e) => this.setState({ np: { ...s.np, colors: e.target.value } }),
+      npSizes: (e) => this.setState({ np: { ...s.np, sizes: e.target.value } }),
+      npStock: (e) => this.setState({ np: { ...s.np, stock: e.target.value } }),
+      npDesc: (e) => this.setState({ np: { ...s.np, description: e.target.value } }),
+      npVisuel: (e) => this.setState({ np: { ...s.np, visuel: e.target.value } }),
+      npPreview: IMGBOX(parseInt(s.np.visuel, 10) || 1, 0),
+      collectionOptions: COLLECTIONS.map((c) => c.name),
+      visuelOptions: prods.map((p) => ({ value: String(p.id), label: p.name })),
+      addProduct: this.addProduct,
+      catalogueCount: prods.length + " fiches · " + prods.filter((p) => !p.archived).length + " en ligne · " + prods.filter((p) => this.stockOf(p) === 0).length + " en rupture",
+      catalogueRows: prods.map((p) => {
+        const st = this.stockOf(p);
+        const sold = s.orders.reduce((a, o) => a + (o.status === "Annulée" || o.status === "Remboursée" ? 0 : (o.items || []).filter((i) => i.productId === p.id).reduce((b, i) => b + i.qty, 0)), 0);
+        return {
+          sku: p.sku, name: p.name, collection: p.collection, price: String(p.price),
+          colorsLabel: p.colors.join(", "), stock: String(st), sold: String(sold),
+          stockStyle: "padding:12px;fontWeight:800;color:" + (st === 0 ? "#e0674c" : st <= 8 ? "#c9a227" : "#f5f3ef"),
+          sizes: Object.keys(p.stock).map((size) => ({
+            size, qty: String(p.stock[size]),
+            inc: () => this.setStock(p.id, size, 1), dec: () => this.setStock(p.id, size, -1),
+            onSet: (e) => this.setStockExact(p.id, size, e.target.value)
+          })),
+          stateLabel: p.archived ? "Retiré" : "En ligne",
+          tagStyle: p.archived ? this.tag("outline") : this.tag("muted"),
+          toggleLabel: p.archived ? "Remettre en ligne" : "Retirer",
+          toggle: () => this.toggleArchive(p.id),
+          onName: (e) => this.updateProduct(p.id, "name", e.target.value),
+          onCollection: (e) => this.updateProduct(p.id, "collection", e.target.value),
+          onPrice: (e) => this.updateProduct(p.id, "price", Math.max(0, parseInt(String(e.target.value).replace(/\D/g, ""), 10) || 0)),
+          onColors: (e) => this.updateProduct(p.id, "colors", e.target.value.split(",").map((x) => x.trim()).filter(Boolean)),
+          duplicate: () => this.duplicateProduct(p.id),
+          askDelete: () => this.setState({ delId: p.id }),
+          cancelDelete: () => this.setState({ delId: null }),
+          confirmDelete: () => this.deleteProduct(p.id),
+          pending: s.delId === p.id, idle: s.delId !== p.id
+        };
+      }),
+
+      lowOnly: s.lowOnly,
+      toggleLow: () => this.setState({ lowOnly: !s.lowOnly }),
+      lowToggleStyle: this.pill(s.lowOnly),
+      lowToggleLabel: s.lowOnly ? "Stock faible seulement" : "Tout le stock",
+      stockLog: (s.stockLog || []).map((m) => ({
+        date: m.date, product: m.product, size: m.size, reason: m.reason,
+        delta: (m.delta > 0 ? "+" : "") + m.delta,
+        style: { padding: "10px 12px", fontWeight: 800, color: m.delta > 0 ? GOLD : "#e8836b" }
+      })),
+      noStockLog: !(s.stockLog || []).length,
+      adminProducts: prods.filter((p) => !s.lowOnly || this.stockOf(p) <= 8).map((p) => {
+        const st = this.stockOf(p);
+        return {
+          name: p.name, collection: p.collection, priceLabel: this.money(p.price), stock: String(st),
+          tagStyle: st === 0 ? this.tag("gold") : st <= 8 ? this.tag("outline") : this.tag("muted"),
+          sizes: Object.keys(p.stock).map((size) => ({
+            size, qty: String(p.stock[size]),
+            inc: () => this.setStock(p.id, size, 1), dec: () => this.setStock(p.id, size, -1),
+            onSet: (e) => this.setStockExact(p.id, size, e.target.value)
+          })),
+          restock: () => this.restock(p.id)
+        };
+      }),
+      adminOrders,
+      adminReviews: this.state.reviews.map((r) => ({
+        productName: (prods.find((p) => p.id === r.productId) || {}).name || "—",
+        author: r.author, stars: this.stars(r.rating), text: r.text, status: r.status,
+        tagStyle: r.status === "Publié" ? this.tag("muted") : this.tag("gold"),
+        publish: () => this.moderate(r.id, "Publié"), reject: () => this.moderate(r.id, "Masqué")
+      })),
+      adminReturns, noAdminReturns: adminReturns.length === 0,
+
+      form: s.form, onNom: this.field("nom"), onEmail: this.field("email"), onPass: this.field("pass"), onPass2: this.field("pass2"),
+      onTel: this.field("tel"), onVille: this.field("ville"), onAdresse: this.field("adresse"),
+      onPays: this.field("pays"), onCarte: this.field("carte"), onExp: this.field("exp"),
+      onCvc: this.field("cvc"), onOm: this.field("om"),
+
+      toast: s.toast, hasToast: !!s.toast
+    };
+  }
+}
+
+</script>
+</body>
+</html>

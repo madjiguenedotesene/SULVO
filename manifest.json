@@ -1,0 +1,12 @@
+{
+  "name": "SULVO — Wear Your Purpose",
+  "short_name": "SULVO",
+  "start_url": "./SULVO Boutique.dc.html",
+  "display": "standalone",
+  "background_color": "#f3f2f2",
+  "theme_color": "#201e1d",
+  "lang": "fr",
+  "icons": [
+    { "src": "assets/sulvo-mark.png", "sizes": "1242x724", "type": "image/png" }
+  ]
+}
